@@ -5,3 +5,5 @@ _____________________________________________________________
 
 - [ ] Use RxJava to fetch Github users basic info
 - [X] Kotlin
+- [ ] DiffUtils
+- [ ] Retrofit authentication
