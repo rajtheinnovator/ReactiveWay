@@ -1,5 +1,7 @@
 package com.enpassio.reactiveway
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -13,9 +15,15 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
-    
+
     private val adapter = GitHubRepoAdapter()
     private var subscription: Subscription? = null
+
+    /*
+    for redirecting back to the app, we'll need the code below which is
+    referenced from: https://stackoverflow.com/a/33871016
+    */
+    private val redirectUri = "com.enpassio.reactiveway://redirecturi"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +42,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        val buttonAuthenticate = findViewById<View>(R.id.authenticate) as Button
+        buttonAuthenticate.setOnClickListener { view -> authenticateUserOnGithub() }
+    }
+
+    private fun authenticateUserOnGithub() {
+        val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(ServiceGenerator.API_BASE_URL
+                        + "?client_id=" + BuildConfig.CLIENT_ID
+                        + "&redirect_uri=" + redirectUri))
+        startActivity(intent)
     }
 
     override fun onDestroy() {
