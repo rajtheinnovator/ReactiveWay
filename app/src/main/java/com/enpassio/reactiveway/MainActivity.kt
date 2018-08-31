@@ -59,22 +59,20 @@ class MainActivity : AppCompatActivity() {
 
         // the intent filter defined in AndroidManifest will handle the return from ACTION_VIEW intent
         val uri = intent.data
-        Log.v("my_tag", "uri  is: " + uri)
         if (uri != null && uri.toString().startsWith(redirectUri)) {
             // use the parameter your API exposes for the code (mostly it's "code")
             val code = uri.getQueryParameter("code")
-            Log.v("my_tag", "auth code is: " + code)
             if (code != null) {
                 // get access token
-                val loginService = ServiceGenerator.createService(LoginService::class.java, clientId, clientSecret)
+                val loginService = APIClient.client.create(LoginService::class.java)
 
-                val call = loginService.getAccessToken(code)
+                val call = loginService.getAccessToken(code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
 
                 call.enqueue(object : Callback<AccessToken> {
                     override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                         val accessToken = response.body()
-                        Log.v("my_tag", "accessToken is: " + accessToken?.token + " type is: " + accessToken?.tokenType)
-                        Log.v("my_tag", "body is: " + response.body().toString() + "msg :" + response.message())
+                        Log.v("my_tag", "accessToken is: " + accessToken?.token)
+                        Log.v("my_tag", "body is: " + response.body().toString() + " msg :" + response.message())
                     }
 
                     override fun onFailure(call: Call<AccessToken>, t: Throwable) {
@@ -90,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupAPI() {
         val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(ServiceGenerator.API_BASE_URL + "authorize/" + "?client_id=" + clientId + "&redirect_uri=" + redirectUri))
+                Uri.parse("https://github.com/login/oauth/" + "authorize/" + "?client_id=" + clientId + "&redirect_uri=" + redirectUri))
         startActivity(intent)
     }
 
