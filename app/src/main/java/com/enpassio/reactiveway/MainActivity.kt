@@ -1,5 +1,6 @@
 package com.enpassio.reactiveway
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +19,7 @@ import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
+
 class MainActivity : AppCompatActivity() {
 
     private val adapter = GitHubRepoAdapter()
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     for redirecting back to the app, we'll need the code below which is
     referenced from: https://stackoverflow.com/a/33871016
     */
+    private var context: Context? = null
 
     private val redirectUri = "com.enpassio.reactiveway://redirecturi"
 
@@ -50,13 +53,43 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        val buttonAuthenticate = findViewById<View>(R.id.authenticate) as Button
-        buttonAuthenticate.setOnClickListener { view -> setupAPI() }
+
+        if (!checkIfTokenIsThereOrNot()) {
+            getUsersDetails()
+            //setupAPI()
+        } else {
+            getUsersDetails()
+        }
+
+        context = this
+    }
+
+    private fun getUsersDetails() {
+
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, sharedPref.getString("token", ""))
+        Log.v("my_tag", "token from shared prefs is: " + sharedPref.getString("token", ""))
+        val call = userDetailsService.getUsersData(sharedPref.getString("token", ""))
+        call.enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("my_tag", "couldn't get users data with error: " + t.message)
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val usersData = response.body()
+                Log.v("my_tag", "users data is: " + usersData.toString())
+            }
+        })
+    }
+
+    private fun checkIfTokenIsThereOrNot(): Boolean {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        Log.v("my_tag", "token is: " + sharedPref.getString("token", ""))
+        return sharedPref.getString("token", "").length > 0
     }
 
     override fun onResume() {
         super.onResume()
-
         // the intent filter defined in AndroidManifest will handle the return from ACTION_VIEW intent
         val uri = intent.data
         if (uri != null && uri.toString().startsWith(redirectUri)) {
@@ -71,8 +104,13 @@ class MainActivity : AppCompatActivity() {
                 call.enqueue(object : Callback<AccessToken> {
                     override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                         val accessToken = response.body()
-                        Log.v("my_tag", "accessToken is: " + accessToken?.token)
-                        Log.v("my_tag", "body is: " + response.body().toString() + " msg :" + response.message())
+                        runOnUiThread() {
+                            val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+                                putString("token", accessToken?.token)
+                                apply()
+                            }
+                        }
                     }
 
                     override fun onFailure(call: Call<AccessToken>, t: Throwable) {

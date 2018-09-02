@@ -15,3 +15,11 @@ interface LoginService {
             @Field("client_id") clientId: String,
             @Field("client_secret") clientSecret: String): Call<AccessToken>
 }
+
+interface UsersService {
+    @FormUrlEncoded
+    @POST("/user")
+    fun getUsersData(
+            @Field("access_token") token: String
+    ): Call<User>
+}
