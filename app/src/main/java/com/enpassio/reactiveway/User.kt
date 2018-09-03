@@ -3,7 +3,6 @@ package com.enpassio.reactiveway
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
 class User {
 
     @SerializedName("login")
@@ -65,7 +64,7 @@ class User {
     var name: String? = null
     @SerializedName("company")
     @Expose
-    var company: String? = null
+    var company: Any? = null
     @SerializedName("blog")
     @Expose
     var blog: String? = null
@@ -99,23 +98,5 @@ class User {
     @SerializedName("updated_at")
     @Expose
     var updatedAt: String? = null
-    @SerializedName("total_private_repos")
-    @Expose
-    var totalPrivateRepos: Int? = null
-    @SerializedName("owned_private_repos")
-    @Expose
-    var ownedPrivateRepos: Int? = null
-    @SerializedName("private_gists")
-    @Expose
-    var privateGists: Int? = null
-    @SerializedName("disk_usage")
-    @Expose
-    var diskUsage: Int? = null
-    @SerializedName("collaborators")
-    @Expose
-    var collaborators: Int? = null
-    @SerializedName("two_factor_authentication")
-    @Expose
-    var twoFactorAuthentication: Boolean? = null
 
 }

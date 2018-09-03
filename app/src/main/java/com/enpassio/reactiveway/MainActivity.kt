@@ -53,23 +53,27 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-        if (!checkIfTokenIsThereOrNot()) {
+        if (checkIfTokenIsAvailable()) {
+            //if token is available in shared preference, we just need to make an api call to fetch users data
             getUsersDetails()
-            //setupAPI()
         } else {
-            getUsersDetails()
+            //otherwise, first save the token in the shared preference
+            setupAPI()
         }
-
         context = this
     }
 
     private fun getUsersDetails() {
+        //get access token from the shared preference
+        val token = getPreferences(Context.MODE_PRIVATE).getString("token", "")
 
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, sharedPref.getString("token", ""))
-        Log.v("my_tag", "token from shared prefs is: " + sharedPref.getString("token", ""))
-        val call = userDetailsService.getUsersData(sharedPref.getString("token", ""))
+        //now create service using the service generator so that it adds header to our call to the endpoint @/user
+        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, token, "bearer")
+        /* fetch data for users scope. This is important as we must include at least one @Field
+        parameter to our service and because we don't want anything specific, we just use @user
+        scope
+        */
+        val call = userDetailsService.getUsersData("user")
         call.enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.e("my_tag", "couldn't get users data with error: " + t.message)
@@ -77,15 +81,16 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 val usersData = response.body()
+                Log.v("my_tag", "users avatar is: " + usersData?.avatarUrl)
                 Log.v("my_tag", "users data is: " + usersData.toString())
             }
         })
     }
 
-    private fun checkIfTokenIsThereOrNot(): Boolean {
+    private fun checkIfTokenIsAvailable(): Boolean {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        Log.v("my_tag", "token is: " + sharedPref.getString("token", ""))
-        return sharedPref.getString("token", "").length > 0
+        val token = sharedPref.getString("token", "")!!
+        if (!token.isEmpty()) return true else return false
     }
 
     override fun onResume() {
@@ -110,6 +115,8 @@ class MainActivity : AppCompatActivity() {
                                 putString("token", accessToken?.token)
                                 apply()
                             }
+                            //after saving the token, fetch users data from the api
+                            getUsersDetails()
                         }
                     }
 
@@ -126,7 +133,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupAPI() {
         val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://github.com/login/oauth/" + "authorize/" + "?client_id=" + clientId + "&redirect_uri=" + redirectUri))
+                Uri.parse("https://github.com/login/oauth/"
+                        + "authorize/" + "?client_id=" + clientId
+                        + "&redirect_uri=" + redirectUri))
         startActivity(intent)
     }
 

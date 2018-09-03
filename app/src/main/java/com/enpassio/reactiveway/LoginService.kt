@@ -20,6 +20,5 @@ interface UsersService {
     @FormUrlEncoded
     @POST("/user")
     fun getUsersData(
-            @Field("access_token") token: String
-    ): Call<User>
+            @Field("scope") scope: String): Call<User>
 }
