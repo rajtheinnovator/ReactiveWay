@@ -26,8 +26,7 @@ object ServiceGenerator {
                 .addInterceptor { chain ->
                     val original = chain.request()
                     val requestBuilder = original.newBuilder()
-                            .header("Accept", "application/vnd.github.v3+json")
-                            .header("Authorization", String.format("Bearer %s", authToken))
+                            .header("Accept", "application/json")
                             .method(original.method(), original.body())
                     val request = requestBuilder.build()
                     Log.v("my_tag", "url is: " + request.url()!!.toString())

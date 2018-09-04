@@ -58,8 +58,7 @@ class MainActivity : AppCompatActivity() {
             getUsersDetails()
         } else {
             //otherwise, first save the token in the shared preference
-            //setupAPI()
-            getUsersDetails()
+            setupAPI()
         }
         context = this
     }
@@ -69,12 +68,12 @@ class MainActivity : AppCompatActivity() {
         val token = getPreferences(Context.MODE_PRIVATE).getString("token", "")
         Log.v("my_tag", "token is " + token)
         //now create service using the service generator so that it adds header to our call to the endpoint @/user
-        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, token)
+        val userDetailsService = UsersClient.client.create(UsersService::class.java)
         /* fetch data for users scope. This is important as we must include at least one @Field
         parameter to our service and because we don't want anything specific, we just use @user
         scope
         */
-        val call = userDetailsService.getUsersData("user")
+        val call = userDetailsService.getUsersData("user", token!!)
         call.enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.e("my_tag", "couldn't get users data with error: " + t.message)
@@ -120,6 +119,7 @@ class MainActivity : AppCompatActivity() {
                             getUsersDetails()
                         }
                     }
+
                     override fun onFailure(call: Call<AccessToken>, t: Throwable) {
                         Log.e("my_tag", "error is: " + t.message)
                     }

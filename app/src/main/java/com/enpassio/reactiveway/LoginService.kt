@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
 interface LoginService {
@@ -17,8 +18,8 @@ interface LoginService {
 }
 
 interface UsersService {
-    @FormUrlEncoded
     @POST("/user")
     fun getUsersData(
-            @Field("scope") scope: String): Call<User>
+            @Query("scope") scope: String,
+            @Query("access_token") token: String): Call<User>
 }
