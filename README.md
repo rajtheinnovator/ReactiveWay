@@ -16,3 +16,4 @@ ______________________________________________________________
 * https://auth0.com/docs/libraries/auth0-android
 * https://stackoverflow.com/a/41238266
 * https://stackoverflow.com/a/41238266
+* https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/

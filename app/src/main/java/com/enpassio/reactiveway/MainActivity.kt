@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity() {
             getUsersDetails()
         } else {
             //otherwise, first save the token in the shared preference
-            setupAPI()
+            //setupAPI()
+            getUsersDetails()
         }
         context = this
     }
@@ -66,9 +67,9 @@ class MainActivity : AppCompatActivity() {
     private fun getUsersDetails() {
         //get access token from the shared preference
         val token = getPreferences(Context.MODE_PRIVATE).getString("token", "")
-
+        Log.v("my_tag", "token is " + token)
         //now create service using the service generator so that it adds header to our call to the endpoint @/user
-        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, token, "bearer")
+        val userDetailsService = ServiceGenerator.createService(UsersService::class.java, token)
         /* fetch data for users scope. This is important as we must include at least one @Field
         parameter to our service and because we don't want anything specific, we just use @user
         scope
@@ -119,7 +120,6 @@ class MainActivity : AppCompatActivity() {
                             getUsersDetails()
                         }
                     }
-
                     override fun onFailure(call: Call<AccessToken>, t: Throwable) {
                         Log.e("my_tag", "error is: " + t.message)
                     }
@@ -135,6 +135,7 @@ class MainActivity : AppCompatActivity() {
                 Intent.ACTION_VIEW,
                 Uri.parse("https://github.com/login/oauth/"
                         + "authorize/" + "?client_id=" + clientId
+                        + "&scope=user"
                         + "&redirect_uri=" + redirectUri))
         startActivity(intent)
     }

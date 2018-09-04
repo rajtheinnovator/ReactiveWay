@@ -14,11 +14,11 @@ object ServiceGenerator {
     private val httpClient = OkHttpClient.Builder()
 
     fun <S> createService(serviceClass: Class<S>): S {
-        return createService(serviceClass, null, null)
+        return createService(serviceClass, null)
     }
 
     fun <S> createService(
-            serviceClass: Class<S>, authToken: String?, token_type: String?): S {
+            serviceClass: Class<S>, authToken: String?): S {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         val client = httpClient
@@ -26,8 +26,8 @@ object ServiceGenerator {
                 .addInterceptor { chain ->
                     val original = chain.request()
                     val requestBuilder = original.newBuilder()
-                            .header("Accept", "application/json")
-                            .header("Authorization", authToken!!)
+                            .header("Accept", "application/vnd.github.v3+json")
+                            .header("Authorization", String.format("Bearer %s", authToken))
                             .method(original.method(), original.body())
                     val request = requestBuilder.build()
                     Log.v("my_tag", "url is: " + request.url()!!.toString())

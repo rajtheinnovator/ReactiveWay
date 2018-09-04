@@ -11,8 +11,7 @@ import java.io.IOException
 
 
 object APIClient {
-
-    const val BASE_URL = "https://github.com/login/oauth/"
+    const val BASE_URL = "https://github.com/"
     private var retrofit: Retrofit? = null
     var gson = GsonBuilder()
             .setLenient()

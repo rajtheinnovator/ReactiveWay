@@ -64,7 +64,7 @@ class User {
     var name: String? = null
     @SerializedName("company")
     @Expose
-    var company: Any? = null
+    var company: String? = null
     @SerializedName("blog")
     @Expose
     var blog: String? = null
@@ -98,5 +98,43 @@ class User {
     @SerializedName("updated_at")
     @Expose
     var updatedAt: String? = null
+    @SerializedName("total_private_repos")
+    @Expose
+    var totalPrivateRepos: Int? = null
+    @SerializedName("owned_private_repos")
+    @Expose
+    var ownedPrivateRepos: Int? = null
+    @SerializedName("private_gists")
+    @Expose
+    var privateGists: Int? = null
+    @SerializedName("disk_usage")
+    @Expose
+    var diskUsage: Int? = null
+    @SerializedName("collaborators")
+    @Expose
+    var collaborators: Int? = null
+    @SerializedName("two_factor_authentication")
+    @Expose
+    var twoFactorAuthentication: Boolean? = null
+    @SerializedName("plan")
+    @Expose
+    var plan: Plan? = null
+
+}
+
+class Plan {
+
+    @SerializedName("name")
+    @Expose
+    var name: String? = null
+    @SerializedName("space")
+    @Expose
+    var space: Int? = null
+    @SerializedName("private_repos")
+    @Expose
+    var privateRepos: Int? = null
+    @SerializedName("collaborators")
+    @Expose
+    var collaborators: Int? = null
 
 }
