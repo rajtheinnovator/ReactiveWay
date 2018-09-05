@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Predicate
@@ -20,23 +21,15 @@ class MainActivity : AppCompatActivity() {
 
     private var compositeDisposable = CompositeDisposable()
 
-    private fun getObservable(): Observable<String> {
-        return Observable.fromArray("Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Wow 5",
-                "Amazing 6")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val buttonCLick: Button = findViewById(R.id.authenticate)
         buttonCLick.setOnClickListener({ view -> addObserver() })
     }
+
+
     private fun addObserver() {
         val myObserver = getMyObserver()
         val myCapsObserver = getMyCapsObserver()
@@ -45,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.add(myObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(object : Predicate<String> {
+                .filter(object : Predicate<MyModel> {
                     @Throws(Exception::class)
-                    override fun test(s: String): Boolean {
-                        return s.toLowerCase().endsWith("3")
+                    override fun test(s: MyModel): Boolean {
+                        return s.myData.toLowerCase().endsWith("e")
                     }
                 })
                 /*
@@ -56,28 +49,23 @@ class MainActivity : AppCompatActivity() {
                 at @Link: https://stackoverflow.com/a/44762520
                 */
                 .subscribeWith(myObserver))
-
-
         compositeDisposable.add(myObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(object : Predicate<String> {
+                .filter(object : Predicate<MyModel> {
                     @Throws(Exception::class)
-                    override fun test(s: String): Boolean {
-                        return s.toLowerCase().startsWith("a")
+                    override fun test(s: MyModel): Boolean {
+                        return s.myData.toLowerCase().startsWith("d")
                     }
                 })
-                .map { s: String -> s.toUpperCase() }
+                .map { s: MyModel -> MyModel(s.myId, s.myData.toUpperCase()) }
                 .subscribeWith(myCapsObserver))
-
-
-        //.map { s:String -> s.toUpperCase() }
     }
 
-    private fun getMyCapsObserver(): DisposableObserver<String> {
-        return object : DisposableObserver<String>() {
-            override fun onNext(s: String) {
-                Log.d(TAG, "onNext called with Name: $s")
+    private fun getMyCapsObserver(): DisposableObserver<MyModel> {
+        return object : DisposableObserver<MyModel>() {
+            override fun onNext(s: MyModel) {
+                Log.d(TAG, "onNext called with myData: ${s.myData}")
             }
 
             override fun onError(e: Throwable) {
@@ -90,10 +78,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMyObserver(): DisposableObserver<String> {
-        return object : DisposableObserver<String>() {
-            override fun onNext(s: String) {
-                Log.d(TAG, "onNext called with Name: $s")
+    private fun getMyObserver(): DisposableObserver<MyModel> {
+        return object : DisposableObserver<MyModel>() {
+            override fun onNext(s: MyModel) {
+                Log.d(TAG, "onNext called with myData: ${s.myData}")
             }
 
             override fun onError(e: Throwable) {
@@ -113,5 +101,29 @@ class MainActivity : AppCompatActivity() {
         so dispose the observer
         */
         compositeDisposable.clear()
+    }
+
+    private fun getObservable(): Observable<MyModel> {
+        val notes = getData()
+        return Observable.create(ObservableOnSubscribe<MyModel> { emitter ->
+            notes.forEach { note ->
+                if (!emitter.isDisposed) {
+                    emitter.onNext(note)
+                }
+            }
+
+            if (!emitter.isDisposed) {
+                emitter.onComplete()
+            }
+        })
+    }
+
+    private fun getData(): List<MyModel> {
+        val myData = ArrayList<MyModel>()
+        myData.add(MyModel(1, "data 1"))
+        myData.add(MyModel(2, "data 2 is good"))
+        myData.add(MyModel(3, "data 3 looks nice"))
+        myData.add(MyModel(4, "data 4, you're amazing"))
+        return myData
     }
 }
