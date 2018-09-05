@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.java.simpleName
     }
 
+    private var disposable: Disposable? = null
+
     var myObservable = Observable
             .just("Item 1",
                     "Item 2",
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun getAnimalsObserver(): Observer<String> {
         return object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
+                disposable = d
                 Log.d(TAG, "onSubscribe")
             }
 
@@ -60,5 +63,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onComplete called and hence all items are emitted!")
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        /*
+        no need to listen to events when the activity is destroyed,
+        so dispose the observer
+        */
+        disposable?.dispose()
     }
 }
