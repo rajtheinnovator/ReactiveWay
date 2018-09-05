@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 
 
@@ -39,7 +40,17 @@ class MainActivity : AppCompatActivity() {
         myObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(myObserver);
+                .filter(object : Predicate<String> {
+                    @Throws(Exception::class)
+                    override fun test(s: String): Boolean {
+                        return s.toLowerCase().endsWith("3")
+                    }
+                })
+                /*
+                subscribe vs subscribeWith explanation here
+                at @Link: https://stackoverflow.com/a/44762520
+                */
+                .subscribeWith(myObserver);
     }
 
 
