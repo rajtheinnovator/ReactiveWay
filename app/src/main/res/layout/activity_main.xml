@@ -4,29 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/list_view_repos"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
         android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/edit_text_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/username" />
-
-        <Button
-            android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search" />
 
         <Button
             android:id="@+id/authenticate"
