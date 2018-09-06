@@ -6,8 +6,10 @@ import android.util.Log
 import android.widget.Button
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Predicate
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +29,75 @@ class MainActivity : AppCompatActivity() {
 
         val buttonCLick: Button = findViewById(R.id.authenticate)
         buttonCLick.setOnClickListener({ view -> addObserver() })
+
+        operatorFromArrayExample()
+        operatorRangeExample()
+        operatorChainingExample()
+    }
+
+    private fun operatorChainingExample() {
+        Observable.range(1, 20)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(object : Predicate<Int> {
+                    @Throws(Exception::class)
+                    override fun test(integer: Int): Boolean {
+                        return integer % 2 == 0
+                    }
+                })
+                .map { data: Int -> "Inside filter ${data} is even number" }
+                .subscribe(object : Observer<String> {
+                    override fun onSubscribe(d: Disposable) {}
+
+                    override fun onNext(s: String) {
+                        Log.d(TAG, "Inside filter onNext: $s")
+                    }
+
+                    override fun onError(e: Throwable) {}
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside filter All numbers have been emitted!")
+                    }
+                })
+
+    }
+
+    private fun operatorRangeExample() {
+        Observable.range(1, 20)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DisposableObserver<Int>() {
+                    override fun onNext(integer: Int) {
+                        Log.d(TAG, "Inside range, Number is: " + integer!!)
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside range, All have been numbers emitted!")
+                    }
+                })
+    }
+
+    private fun operatorFromArrayExample() {
+        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+
+        Observable.fromArray(*numbers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DisposableObserver<Int>() {
+                    override fun onNext(integer: Int) {
+                        Log.d(TAG, "Inside fromArray, Number is: " + integer!!)
+                    }
+
+                    override fun onError(e: Throwable) {}
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside fromArray, All numbers have been emitted!")
+                    }
+                })
     }
 
 
