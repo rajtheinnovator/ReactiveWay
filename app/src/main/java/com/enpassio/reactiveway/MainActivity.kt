@@ -33,6 +33,113 @@ class MainActivity : AppCompatActivity() {
         operatorFromArrayExample()
         operatorRangeExample()
         operatorChainingExample()
+        operatorJustWhichGivesJustOneEmissionExample()
+        operatorJustWhichGivesJustOneEmissionWithLoopsExample()
+        operatorFromWhichGivesNEmission()
+        operatorRepeatExample()
+
+    }
+
+    private fun operatorRepeatExample() {
+        Observable
+                .range(1, 4)
+                .repeat(3)
+                .subscribe(object : Observer<Int> {
+                    override fun onSubscribe(d: Disposable) {
+                        Log.d(TAG, "Subscribed")
+                    }
+
+                    override fun onNext(integer: Int) {
+                        Log.d(TAG, "Inside Repeat, onNext: " + integer)
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside repeat, Completed emitting all numbers")
+                    }
+                })
+    }
+
+    private fun operatorFromWhichGivesNEmission() {
+        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+
+        Observable.fromArray(*numbers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Int> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(integer: Int) {
+                        Log.d(TAG, "Inside fromArray, onNext: " + integer)
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside fromArray, All numbers have been emitted!")
+                    }
+                })
+    }
+
+    private fun operatorJustWhichGivesJustOneEmissionWithLoopsExample() {
+        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+        val lotsOfNumbers = arrayOf(50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60)
+
+        Observable.just(numbers, lotsOfNumbers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Array<Int>> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(integersArrayList: Array<Int>) {
+                        for (number in integersArrayList) {
+                            Log.d(TAG, "Inside just with loop, onNext: " + number)
+                        }
+
+
+                        // you might have to loop through the array
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside just with loops, All numbers have been emitted!")
+                    }
+                })
+    }
+
+    private fun operatorJustWhichGivesJustOneEmissionExample() {
+        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Int> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(integer: Int) {
+                        Log.d(TAG, "Inside just onNext: " + integer)
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Inside just All numbers have been emitted!")
+                    }
+                })
     }
 
     private fun operatorChainingExample() {
