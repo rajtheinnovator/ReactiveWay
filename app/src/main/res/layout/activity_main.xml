@@ -5,12 +5,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/no_content_message_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:padding="8dp"
         android:text="There is currently nothing to show to the user
         as machine is doing the internal work" />
+
+    <Button
+        android:id="@+id/authenticate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/no_content_message_text_view"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
