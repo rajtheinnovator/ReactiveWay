@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".ObservablesAndObserversActivity" />
         <activity android:name=".SingleObservableSingleObserverActivity" />
+        <activity android:name=".MaybeObservableMaybeObserverActivity" />
     </application>
 
 </manifest>

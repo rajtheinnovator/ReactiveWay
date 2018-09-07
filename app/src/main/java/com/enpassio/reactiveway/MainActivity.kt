@@ -41,7 +41,10 @@ class MainActivity : AppCompatActivity() {
 //        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
 //        startActivity(observablesAndObserversActivityIntent)
 
-        val observablesAndObserversActivityIntent = Intent(this, SingleObservableSingleObserverActivity::class.java)
+//        val observablesAndObserversActivityIntent = Intent(this, SingleObservableSingleObserverActivity::class.java)
+//        startActivity(observablesAndObserversActivityIntent)
+
+        val observablesAndObserversActivityIntent = Intent(this, MaybeObservableMaybeObserverActivity::class.java)
         startActivity(observablesAndObserversActivityIntent)
 
     }
