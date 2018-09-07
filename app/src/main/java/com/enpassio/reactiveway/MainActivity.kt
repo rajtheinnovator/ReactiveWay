@@ -47,8 +47,11 @@ class MainActivity : AppCompatActivity() {
 //        val observablesAndObserversActivityIntent = Intent(this, MaybeObservableMaybeObserverActivity::class.java)
 //        startActivity(observablesAndObserversActivityIntent)
 
-        val completableObserverActivity = Intent(this, CompletableObservableCompletableObserverActivity::class.java)
-        startActivity(completableObserverActivity)
+//        val completableObserverActivity = Intent(this, CompletableObservableCompletableObserverActivity::class.java)
+//        startActivity(completableObserverActivity)
+
+        val flowableObserverActivity = Intent(this, FlowableObservableSingleObserverActivity::class.java)
+        startActivity(flowableObserverActivity)
 
     }
 

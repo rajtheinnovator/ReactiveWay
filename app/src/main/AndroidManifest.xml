@@ -35,6 +35,7 @@
         <activity android:name=".SingleObservableSingleObserverActivity" />
         <activity android:name=".MaybeObservableMaybeObserverActivity" />
         <activity android:name=".CompletableObservableCompletableObserverActivity" />
+        <activity android:name=".FlowableObservableSingleObserverActivity" />
     </application>
 
 </manifest>
