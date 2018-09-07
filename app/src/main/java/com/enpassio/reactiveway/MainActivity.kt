@@ -37,7 +37,11 @@ class MainActivity : AppCompatActivity() {
 //        operatorJustWhichGivesJustOneEmissionWithLoopsExample()
 //        operatorFromWhichGivesNEmission()
 //        operatorRepeatExample()
-        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
+
+//        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
+//        startActivity(observablesAndObserversActivityIntent)
+
+        val observablesAndObserversActivityIntent = Intent(this, SingleObservableSingleObserverActivity::class.java)
         startActivity(observablesAndObserversActivityIntent)
 
     }

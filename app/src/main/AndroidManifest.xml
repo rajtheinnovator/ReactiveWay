@@ -32,6 +32,7 @@
 
         </activity>
         <activity android:name=".ObservablesAndObserversActivity" />
+        <activity android:name=".SingleObservableSingleObserverActivity" />
     </application>
 
 </manifest>
