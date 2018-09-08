@@ -39,6 +39,7 @@
         <activity android:name=".MapOperatorActivity" />
         <activity android:name=".FlatMapActivity" />
         <activity android:name=".ConcatMapOperatorActivity" />
+        <activity android:name=".SwitchMapOperatorActivity" />
     </application>
 
 </manifest>
