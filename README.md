@@ -15,3 +15,4 @@ ______________________________________________________________
 * https://www.androidhive.info/RxJava/rxjava-operators-just-range-from-repeat/
 * https://www.androidhive.info/RxJava/rxjava-understanding-observables/
 * https://github.com/ReactiveX/RxJava/wiki/What%27s-different-in-2.0#when-to-use-flowable (a bit tricky to understand)
+* https://www.androidhive.info/RxJava/map-flatmap-switchmap-concatmap/

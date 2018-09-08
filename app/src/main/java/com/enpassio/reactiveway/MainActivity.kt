@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Button
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -28,31 +27,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonCLick: Button = findViewById(R.id.authenticate)
-        buttonCLick.setOnClickListener({ view -> addObserver() })
+//        val buttonCLick: Button = findViewById(R.id.authenticate)
+//        buttonCLick.setOnClickListener({ view -> addObserver() })
+//
+//        operatorFromArrayExample()
+//        operatorRangeExample()
+//        operatorChainingExample()
+//        operatorJustWhichGivesJustOneEmissionExample()
+//        operatorJustWhichGivesJustOneEmissionWithLoopsExample()
+//        operatorFromWhichGivesNEmission()
+//        operatorRepeatExample()
+//
+//        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
+//        startActivity(observablesAndObserversActivityIntent)
+//
+//        val singleObservableSingleObserverActivity = Intent(this, SingleObservableSingleObserverActivity::class.java)
+//        startActivity(singleObservableSingleObserverActivity)
+//
+//        val maybeObservableMaybeObserverActivity = Intent(this, MaybeObservableMaybeObserverActivity::class.java)
+//        startActivity(maybeObservableMaybeObserverActivity)
+//
+//        val completableObservableCompletableObserverActivity = Intent(this, CompletableObservableCompletableObserverActivity::class.java)
+//        startActivity(completableObservableCompletableObserverActivity)
+//
+//        val flowableObservableSingleObserverActivity = Intent(this, FlowableObservableSingleObserverActivity::class.java)
+//        startActivity(flowableObservableSingleObserverActivity)
 
-        operatorFromArrayExample()
-        operatorRangeExample()
-        operatorChainingExample()
-        operatorJustWhichGivesJustOneEmissionExample()
-        operatorJustWhichGivesJustOneEmissionWithLoopsExample()
-        operatorFromWhichGivesNEmission()
-        operatorRepeatExample()
-
-        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
-        startActivity(observablesAndObserversActivityIntent)
-
-        val singleObservableSingleObserverActivity = Intent(this, SingleObservableSingleObserverActivity::class.java)
-        startActivity(singleObservableSingleObserverActivity)
-
-        val maybeObservableMaybeObserverActivity = Intent(this, MaybeObservableMaybeObserverActivity::class.java)
-        startActivity(maybeObservableMaybeObserverActivity)
-
-        val completableObservableCompletableObserverActivity = Intent(this, CompletableObservableCompletableObserverActivity::class.java)
-        startActivity(completableObservableCompletableObserverActivity)
-
-        val flowableObservableSingleObserverActivity = Intent(this, FlowableObservableSingleObserverActivity::class.java)
-        startActivity(flowableObservableSingleObserverActivity)
+        val mapOperatorActivity = Intent(this, MapOperatorActivity::class.java)
+        startActivity(mapOperatorActivity)
 
     }
 
