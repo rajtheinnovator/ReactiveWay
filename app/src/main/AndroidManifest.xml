@@ -38,6 +38,7 @@
         <activity android:name=".FlowableObservableSingleObserverActivity" />
         <activity android:name=".MapOperatorActivity" />
         <activity android:name=".FlatMapActivity" />
+        <activity android:name=".ConcatMapOperatorActivity" />
     </application>
 
 </manifest>

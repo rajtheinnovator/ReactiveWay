@@ -55,9 +55,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val mapOperatorActivity = Intent(this, MapOperatorActivity::class.java)
 //        startActivity(mapOperatorActivity)
+//
+//        val flatMapActivity = Intent(this, FlatMapActivity::class.java)
+//        startActivity(flatMapActivity)
 
-        val flatMapActivity = Intent(this, FlatMapActivity::class.java)
-        startActivity(flatMapActivity)
+        val concatMapOperatorActivity = Intent(this, ConcatMapOperatorActivity::class.java)
+        startActivity(concatMapOperatorActivity)
 
 
     }
