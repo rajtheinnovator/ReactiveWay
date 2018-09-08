@@ -52,9 +52,13 @@ class MainActivity : AppCompatActivity() {
 //
 //        val flowableObservableSingleObserverActivity = Intent(this, FlowableObservableSingleObserverActivity::class.java)
 //        startActivity(flowableObservableSingleObserverActivity)
+//
+//        val mapOperatorActivity = Intent(this, MapOperatorActivity::class.java)
+//        startActivity(mapOperatorActivity)
 
-        val mapOperatorActivity = Intent(this, MapOperatorActivity::class.java)
-        startActivity(mapOperatorActivity)
+        val flatMapActivity = Intent(this, FlatMapActivity::class.java)
+        startActivity(flatMapActivity)
+
 
     }
 
