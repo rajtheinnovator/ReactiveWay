@@ -11,7 +11,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-
 class SwitchMapOperatorActivity : AppCompatActivity() {
 
     private var disposable: Disposable? = null
@@ -22,19 +21,19 @@ class SwitchMapOperatorActivity : AppCompatActivity() {
 
         val integerObservable = Observable.fromArray(arrayOf(1, 2, 3, 4, 5, 6))
 
-        // it always emits 6 as it un-subscribes the previous observer
+        // it always emits 1 as it un-subscribes the previous observer
         integerObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .switchMap { Int -> getObservableSource(Int) }
+                .switchMap { integer -> getObservableSource(integer) }
                 .subscribe(object : Observer<Int> {
                     override fun onSubscribe(d: Disposable) {
-                        Log.d(TAG, "onSubscribe")
+                        Log.d(TAG, "SwitchMap onSubscribe")
                         disposable = d
                     }
 
                     override fun onNext(integer: Int) {
-                        Log.d(TAG, "onNext: " + integer)
+                        Log.d(TAG, "SwitchMap onNext: " + integer)
                     }
 
                     override fun onError(e: Throwable) {
@@ -42,13 +41,13 @@ class SwitchMapOperatorActivity : AppCompatActivity() {
                     }
 
                     override fun onComplete() {
-                        Log.d(TAG, "All users emitted!")
+                        Log.d(TAG, "SwitchMap All users emitted!")
                     }
                 })
     }
 
-    private fun getObservableSource(integer: Int): ObservableSource<Int> {
-        return Observable.just(integer).delay(1, TimeUnit.SECONDS)
+    private fun getObservableSource(integer: Array<Int>): ObservableSource<Int> {
+        return Observable.just(integer[0]).delay(1, TimeUnit.SECONDS)
     }
 
     override fun onDestroy() {
