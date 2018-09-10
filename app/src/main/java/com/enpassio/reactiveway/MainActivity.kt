@@ -67,9 +67,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val bufferOperatorActivity = Intent(this, BufferOperatorActivity::class.java)
 //        startActivity(bufferOperatorActivity)
+//
+//        val debounceOperatorActivity = Intent(this, DebounceOperatorActivity::class.java)
+//        startActivity(debounceOperatorActivity)
 
-        val debounceOperatorActivity = Intent(this, DebounceOperatorActivity::class.java)
-        startActivity(debounceOperatorActivity)
+        val concatOperatorExample = Intent(this, ConcatOperatorExample::class.java)
+        startActivity(concatOperatorExample)
     }
 
     private fun operatorRepeatExample() {

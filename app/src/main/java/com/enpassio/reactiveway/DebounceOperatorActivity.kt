@@ -3,8 +3,6 @@ package com.enpassio.reactiveway
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.TextView
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -22,8 +20,6 @@ class DebounceOperatorActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
     private var unbinder: Unbinder? = null
 
-    @BindView(R.id.txt_search_string)
-    internal var txtSearchString: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +34,7 @@ class DebounceOperatorActivity : AppCompatActivity() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(searchQuery()))
 
-        txtSearchString!!.text = "Search query will be accumulated every 300 milli sec"
+        txt_search_string!!.text = "Search query will be accumulated every 300 milli sec"
     }
 
     private fun searchQuery(): DisposableObserver<TextViewTextChangeEvent> {
@@ -46,7 +42,7 @@ class DebounceOperatorActivity : AppCompatActivity() {
             override fun onNext(textViewTextChangeEvent: TextViewTextChangeEvent) {
                 Log.d(TAG, "DebounceOperator search string: " + textViewTextChangeEvent.text().toString())
 
-                txtSearchString!!.text = "Query: " + textViewTextChangeEvent.text().toString()
+                txt_search_string!!.text = "Query: " + textViewTextChangeEvent.text().toString()
             }
 
             override fun onError(e: Throwable) {
