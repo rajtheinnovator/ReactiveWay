@@ -70,9 +70,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val debounceOperatorActivity = Intent(this, DebounceOperatorActivity::class.java)
 //        startActivity(debounceOperatorActivity)
+//
+//        val concatOperatorExample = Intent(this, ConcatOperatorExample::class.java)
+//        startActivity(concatOperatorExample)
 
-        val concatOperatorExample = Intent(this, ConcatOperatorExample::class.java)
-        startActivity(concatOperatorExample)
+        val mergeOperatorExample = Intent(this, MergeOperatorExample::class.java)
+        startActivity(mergeOperatorExample)
     }
 
     private fun operatorRepeatExample() {

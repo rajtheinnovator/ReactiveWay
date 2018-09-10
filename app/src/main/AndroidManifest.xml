@@ -41,6 +41,7 @@
         <activity android:name=".BufferOperatorActivity" />
         <activity android:name=".DebounceOperatorActivity"></activity>
         <activity android:name=".ConcatOperatorExample" />
+        <activity android:name=".MergeOperatorExample" />
     </application>
 
 </manifest>
