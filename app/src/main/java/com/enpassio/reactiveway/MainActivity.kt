@@ -64,10 +64,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val switchMapOperatorActivity = Intent(this, SwitchMapOperatorActivity::class.java)
 //        startActivity(switchMapOperatorActivity)
+//
+//        val bufferOperatorActivity = Intent(this, BufferOperatorActivity::class.java)
+//        startActivity(bufferOperatorActivity)
 
-        val bufferOperatorActivity = Intent(this, BufferOperatorActivity::class.java)
-        startActivity(bufferOperatorActivity)
-
+        val debounceOperatorActivity = Intent(this, DebounceOperatorActivity::class.java)
+        startActivity(debounceOperatorActivity)
     }
 
     private fun operatorRepeatExample() {
