@@ -61,9 +61,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val concatMapOperatorActivity = Intent(this, ConcatMapOperatorActivity::class.java)
 //        startActivity(concatMapOperatorActivity)
+//
+//        val switchMapOperatorActivity = Intent(this, SwitchMapOperatorActivity::class.java)
+//        startActivity(switchMapOperatorActivity)
 
-        val switchMapOperatorActivity = Intent(this, SwitchMapOperatorActivity::class.java)
-        startActivity(switchMapOperatorActivity)
+        val bufferOperatorActivity = Intent(this, BufferOperatorActivity::class.java)
+        startActivity(bufferOperatorActivity)
 
     }
 
