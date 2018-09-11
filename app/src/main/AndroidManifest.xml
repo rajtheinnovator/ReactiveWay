@@ -18,6 +18,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -28,22 +29,8 @@
                     android:host="redirecturi"
                     android:scheme="com.enpassio.reactiveway" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".ObservablesAndObserversActivity" />
-        <activity android:name=".SingleObservableSingleObserverActivity" />
-        <activity android:name=".MaybeObservableMaybeObserverActivity" />
-        <activity android:name=".CompletableObservableCompletableObserverActivity" />
-        <activity android:name=".FlowableObservableSingleObserverActivity" />
-        <activity android:name=".MapOperatorActivity" />
-        <activity android:name=".FlatMapActivity" />
-        <activity android:name=".ConcatMapOperatorActivity" />
-        <activity android:name=".SwitchMapOperatorActivity" />
-        <activity android:name=".BufferOperatorActivity" />
-        <activity android:name=".DebounceOperatorActivity"></activity>
-        <activity android:name=".ConcatOperatorExample" />
-        <activity android:name=".MergeOperatorExample" />
-        <activity android:name=".MathematicalOperatorExample" />
-        <activity android:name=".MathematicalOperationOnCustomDataTypes" />
     </application>
 
 </manifest>
