@@ -14,7 +14,7 @@ import io.reactivex.functions.Predicate
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-
+//This will serve as a copy of master before merging operators example
 class MainActivity : AppCompatActivity() {
 
     companion object {
