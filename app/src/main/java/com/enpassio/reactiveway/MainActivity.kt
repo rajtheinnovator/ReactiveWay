@@ -73,9 +73,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val concatOperatorExample = Intent(this, ConcatOperatorExample::class.java)
 //        startActivity(concatOperatorExample)
+//
+//        val mergeOperatorExample = Intent(this, MergeOperatorExample::class.java)
+//        startActivity(mergeOperatorExample)
 
-        val mergeOperatorExample = Intent(this, MergeOperatorExample::class.java)
-        startActivity(mergeOperatorExample)
+        val mathematicalOperatorExample = Intent(this, MathematicalOperatorExample::class.java)
+        startActivity(mathematicalOperatorExample)
     }
 
     private fun operatorRepeatExample() {

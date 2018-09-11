@@ -6,3 +6,5 @@ data class User(var name: String? = null,
                 var address: Address? = null)
 
 data class Address(var address: String? = null)
+data class Person(var name: String? = null,
+                  var age: Int? = null)

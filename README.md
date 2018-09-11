@@ -18,3 +18,8 @@ ______________________________________________________________
 * https://www.androidhive.info/RxJava/map-flatmap-switchmap-concatmap/
 * https://github.com/mgp/effective-rxjava/blob/master/items/understand-switch-map.md(really important to understand switchMap)
 * https://code.tutsplus.com/tutorials/rxjava-for-android-apps-introducing-rxbinding-and-rxlifecycle--cms-28565
+* https://www.androidhive.info/RxJava/rxjava-operators-concat-merge/
+* https://www.androidhive.info/RxJava/mathematical-operators-rxjava/
+* https://github.com/ReactiveX/RxJava/wiki/Mathematical-and-Aggregate-Operators
+* https://www.baeldung.com/rxjava-math
+* https://search.maven.org/artifact/com.github.akarnokd/rxjava2-extensions/0.20.3/jar

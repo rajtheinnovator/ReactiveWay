@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.enpassio.reactiveway"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -23,6 +23,10 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'CLIENT_ID', clientId
         it.buildConfigField 'String', 'CLIENT_SECRET', clientSecret
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -63,4 +67,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //Add RxBinding to handle RxView
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.1.1'
+    //RxJava math dependency
+    implementation 'io.reactivex:rxjava-math:1.0.0'
+    implementation 'com.github.akarnokd:rxjava2-extensions:0.20.3'
 }

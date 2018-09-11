@@ -42,6 +42,7 @@
         <activity android:name=".DebounceOperatorActivity"></activity>
         <activity android:name=".ConcatOperatorExample" />
         <activity android:name=".MergeOperatorExample" />
+        <activity android:name=".MathematicalOperatorExample" />
     </application>
 
 </manifest>
