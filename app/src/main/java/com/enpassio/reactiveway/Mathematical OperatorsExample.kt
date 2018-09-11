@@ -1,6 +1,5 @@
 package com.enpassio.reactiveway
 
-
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -8,9 +7,6 @@ import hu.akarnokd.rxjava2.math.MathObservable
 import io.reactivex.*
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-
-//import rx.observables.MathObservable
-
 
 class MathematicalOperatorExample : AppCompatActivity() {
 
@@ -31,21 +27,6 @@ class MathematicalOperatorExample : AppCompatActivity() {
         operatorCountExample()
         operatorReduceExample()
 
-    }
-
-    private fun getPersons(): List<Person> {
-        val persons = ArrayList<Person>()
-
-        val p1 = Person("Lucy", 24)
-        persons.add(p1)
-
-        val p2 = Person("John", 45)
-        persons.add(p2)
-
-        val p3 = Person("Obama", 51)
-        persons.add(p3)
-
-        return persons
     }
 
     private fun operatorReduceExample() {
