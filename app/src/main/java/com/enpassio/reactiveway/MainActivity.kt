@@ -19,7 +19,7 @@ import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-
+//This will serve as a copy of master before merging operators example
 class MainActivity : AppCompatActivity() {
 
     private val adapter = GitHubRepoAdapter()
