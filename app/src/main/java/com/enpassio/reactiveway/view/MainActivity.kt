@@ -20,8 +20,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.enpassio.reactiveway.R
 import com.enpassio.reactiveway.network.ApiClient
 import com.enpassio.reactiveway.network.ApiService
@@ -33,33 +31,37 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_main.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
+
     private var apiService: ApiService? = null
     private val disposable = CompositeDisposable()
     private var mAdapter: NotesAdapter? = null
-    private val notesList = ArrayList<Note>()
+    private var notesList: ArrayList<Note>? = null
 
-    @BindView(R.id.coordinator_layout)
-    internal var coordinatorLayout: CoordinatorLayout? = null
+    lateinit var coordinatorLayout: CoordinatorLayout
 
-    @BindView(R.id.recycler_view)
-    internal var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
 
-    @BindView(R.id.txt_empty_notes_view)
-    internal var noNotesView: TextView? = null
+    lateinit var noNotesView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        //ButterKnife.bind(this)
+        notesList = ArrayList()
+        recyclerView = recycler_view
+        coordinatorLayout = findViewById(R.id.coordinator_layout)
+        noNotesView = txt_empty_notes_view
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.setTitle(getString(R.string.activity_title_home))
@@ -78,21 +80,21 @@ class MainActivity : AppCompatActivity() {
 
         apiService = ApiClient.getClient(applicationContext).create(ApiService::class.java)
 
-        mAdapter = NotesAdapter(this, notesList)
+        mAdapter = NotesAdapter(this, notesList!!)
         val mLayoutManager = LinearLayoutManager(applicationContext)
         recyclerView = findViewById(R.id.recycler_view)
-        recyclerView!!.layoutManager = mLayoutManager
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.addItemDecoration(MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16))
-        recyclerView!!.adapter = mAdapter
+        recyclerView.layoutManager = mLayoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.addItemDecoration(MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16))
+        recyclerView.adapter = mAdapter
 
         /**
          * On long press on RecyclerView item, open alert dialog
          * with options to choose
          * Edit and Delete
          */
-        recyclerView!!.addOnItemTouchListener(RecyclerTouchListener(this,
-                recyclerView!!, object : RecyclerTouchListener.ClickListener {
+        recyclerView.addOnItemTouchListener(RecyclerTouchListener(this,
+                recyclerView, object : RecyclerTouchListener.ClickListener {
             override fun onClick(view: View, position: Int) {}
 
             override fun onLongClick(view: View?, position: Int) {
@@ -157,21 +159,17 @@ class MainActivity : AppCompatActivity() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .map { listOfNotes -> listOfNotes.sortedWith(compareBy({ it.id })) }
                         .subscribeWith(object : DisposableSingleObserver<List<Note>>() {
-                            override fun onSuccess(notes: List<Note>) {
-                                notesList.clear()
-                                notesList.addAll(notes)
-                                mAdapter!!.notifyDataSetChanged()
-
-                                /*
-                                  runOnUiThread(){
-                                    recyclerView?.adapter = NotesAdapter(this@MainActivity, notesList)
-                                    Log.v("my_tag", "notes is: " + notesList.get(0).note)
+                            override fun onSuccess(noteses: List<Note>) {
+                                runOnUiThread {
+                                    notesList = ArrayList()
+                                    for (note in noteses) {
+                                        notesList?.add(note)
+                                    }
+                                    recyclerView.adapter = NotesAdapter(this@MainActivity, noteses)
+                                    toggleEmptyNotes()
+                                    Log.v("my_tag", "inside runOnUi")
                                 }
-                                */
-
-                                toggleEmptyNotes()
                             }
-
                             override fun onError(e: Throwable) {
                                 Log.e(TAG, "onError: " + e.message)
                                 showError(e)
@@ -197,12 +195,7 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                 Log.d(TAG, "new note created: " + note.id + ", " + note.note + ", " + note.timestamp)
-
-                                // Add new item and notify adapter
-                                notesList.add(0, note)
-                                mAdapter!!.notifyItemInserted(0)
-
-                                toggleEmptyNotes()
+                                fetchAllNotes()
                             }
 
                             override fun onError(e: Throwable) {
@@ -224,11 +217,11 @@ class MainActivity : AppCompatActivity() {
                             override fun onComplete() {
                                 Log.d(TAG, "Note updated!")
 
-                                val n = notesList.get(position)
-                                n.note = note
+                                val n = notesList?.get(position)
+                                n?.note = note
 
                                 // Update item and notify adapter
-                                notesList.set(position, n)
+                                notesList?.set(position, n!!)
                                 mAdapter!!.notifyItemChanged(position)
                             }
 
@@ -253,7 +246,7 @@ class MainActivity : AppCompatActivity() {
                                 Log.d(TAG, "Note deleted! $noteId")
 
                                 // Remove and notify adapter about item deletion
-                                notesList.removeAt(position)
+                                notesList?.removeAt(position)
                                 mAdapter!!.notifyItemRemoved(position)
 
                                 Toast.makeText(this@MainActivity, "Note deleted!", Toast.LENGTH_SHORT).show()
@@ -332,19 +325,20 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle("Choose option")
         builder.setItems(colors, DialogInterface.OnClickListener { dialog, which ->
             if (which == 0) {
-                showNoteDialog(true, notesList.get(position), position)
+                showNoteDialog(true, notesList?.get(position), position)
             } else {
-                deleteNote(notesList.get(position).id, position)
+                deleteNote(notesList?.get(position)!!.id, position)
             }
         })
         builder.show()
     }
 
     private fun toggleEmptyNotes() {
-        if (notesList.size > 0) {
-            noNotesView!!.visibility = View.GONE
+        Log.v("my_tag", "inside toggleEmptyNotes")
+        if (notesList?.isNotEmpty()!!) {
+            noNotesView.visibility = View.GONE
         } else {
-            noNotesView!!.visibility = View.VISIBLE
+            noNotesView.visibility = View.VISIBLE
         }
     }
 

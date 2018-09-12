@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.enpassio.reactiveway.R
 import com.enpassio.reactiveway.network.model.Note
 import java.text.ParseException
@@ -20,18 +18,13 @@ class NotesAdapter(private val context: Context, private val notesList: List<Not
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        @BindView(R.id.note)
-        internal var note: TextView? = null
 
-        @BindView(R.id.dot)
-        internal var dot: TextView? = null
+        internal var note: TextView = view.findViewById(R.id.note)
 
-        @BindView(R.id.timestamp)
-        internal var timestamp: TextView? = null
 
-        init {
-            ButterKnife.bind(this, view)
-        }
+        internal var dot: TextView = view.findViewById(R.id.dot)
+
+        internal var timestamp: TextView = view.findViewById(R.id.timestamp)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
