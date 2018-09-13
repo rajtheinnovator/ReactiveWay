@@ -55,7 +55,9 @@ class NotesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
         setContentView(R.layout.activity_notes)
 
         notesList = ArrayList()
@@ -167,7 +169,6 @@ class NotesActivity : AppCompatActivity() {
                                     }
                                     recyclerView.adapter = NotesAdapter(this@NotesActivity, noteses)
                                     toggleEmptyNotes()
-                                    Log.v("my_tag", "inside runOnUi")
                                 }
                             }
 
@@ -217,13 +218,7 @@ class NotesActivity : AppCompatActivity() {
                         .subscribeWith(object : DisposableCompletableObserver() {
                             override fun onComplete() {
                                 Log.d(TAG, "Note updated!")
-
-                                val n = notesList?.get(position)
-                                n?.note = note
-
-                                // Update item and notify adapter
-                                notesList?.set(position, n!!)
-                                mAdapter!!.notifyItemChanged(position)
+                                fetchAllNotes()
                             }
 
                             override fun onError(e: Throwable) {
@@ -245,14 +240,8 @@ class NotesActivity : AppCompatActivity() {
                         .subscribeWith(object : DisposableCompletableObserver() {
                             override fun onComplete() {
                                 Log.d(TAG, "Note deleted! $noteId")
-
-                                // Remove and notify adapter about item deletion
-                                notesList?.removeAt(position)
-                                mAdapter!!.notifyItemRemoved(position)
-
                                 Toast.makeText(this@NotesActivity, "Note deleted!", Toast.LENGTH_SHORT).show()
-
-                                toggleEmptyNotes()
+                                fetchAllNotes()
                             }
 
                             override fun onError(e: Throwable) {
@@ -335,7 +324,7 @@ class NotesActivity : AppCompatActivity() {
     }
 
     private fun toggleEmptyNotes() {
-        Log.v("my_tag", "inside toggleEmptyNotes")
+
         if (notesList?.isNotEmpty()!!) {
             noNotesView.visibility = View.GONE
         } else {
@@ -373,7 +362,7 @@ class NotesActivity : AppCompatActivity() {
         }
 
         val snackbar = Snackbar
-                .make(coordinatorLayout!!, message, Snackbar.LENGTH_LONG)
+                .make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
 
         val sbView = snackbar.view
         val textView: TextView = sbView.findViewById(android.support.design.R.id.snackbar_text)
@@ -396,6 +385,6 @@ class NotesActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val TAG = "my_tag"
+        private val TAG = NotesActivity::class.java.simpleName
     }
 }
