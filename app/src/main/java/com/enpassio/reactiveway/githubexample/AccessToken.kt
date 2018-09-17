@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.githubexample
 
 import com.google.gson.annotations.SerializedName
 

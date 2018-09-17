@@ -11,7 +11,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import com.enpassio.reactiveway.instantsearch.recyclerviewwithsearch.RecyclerViewSearchActivity
+import com.enpassio.reactiveway.githubexample.*
+import com.enpassio.reactiveway.instantsearch.view.InstantSearchActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,8 +45,11 @@ class MainActivity : AppCompatActivity() {
         val listView = findViewById<View>(R.id.list_view_repos) as ListView
         listView.setAdapter(adapter)
 
-        val recyclerViewSearchIntent = Intent(this, RecyclerViewSearchActivity::class.java)
-        startActivity(recyclerViewSearchIntent)
+//        val recyclerViewSearchIntent = Intent(this, RecyclerViewSearchActivity::class.java)
+//        startActivity(recyclerViewSearchIntent)
+
+        val instantSearchActivity = Intent(this, InstantSearchActivity::class.java)
+        startActivity(instantSearchActivity)
 
         val editTextUsername = findViewById<View>(R.id.edit_text_username) as EditText
         val buttonSearch = findViewById<View>(R.id.button_search) as Button

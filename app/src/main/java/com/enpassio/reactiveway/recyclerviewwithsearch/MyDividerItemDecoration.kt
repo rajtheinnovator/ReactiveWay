@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway.instantsearch.recyclerviewwithsearch
+package com.enpassio.reactiveway.recyclerviewwithsearch
 
 import android.content.Context
 import android.graphics.Canvas

@@ -5,13 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".recyclerviewwithsearch.RecyclerViewSearchActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context=".instantsearch.view.RemoteSearchActivity">
+
+    <EditText
+        android:id="@+id/input_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:hint="@string/hint_search"
+        android:paddingBottom="@dimen/dimen_20" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/input_search" />
 
 </RelativeLayout>

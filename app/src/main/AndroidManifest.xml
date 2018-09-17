@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".instantsearch.recyclerviewwithsearch.MyApplication"
+        android:name="com.enpassio.reactiveway.recyclerviewwithsearch.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,7 +38,7 @@
 
         </activity>
         <activity
-            android:name=".instantsearch.recyclerviewwithsearch.RecyclerViewSearchActivity"
+            android:name="com.enpassio.reactiveway.recyclerviewwithsearch.RecyclerViewSearchActivity"
             android:label="RecyclerViewSearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -50,6 +50,20 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".instantsearch.view.LocalSearchActivity"
+            android:label="@string/activity_local_search"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".instantsearch.view.RemoteSearchActivity"
+            android:label="@string/activity_remote_search"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".instantsearch.view.InstantSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

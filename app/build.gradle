@@ -69,4 +69,6 @@ dependencies {
 
     // volley http library
     implementation 'com.android.volley:volley:1.1.0'
+
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 }

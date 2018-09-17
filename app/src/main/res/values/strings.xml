@@ -13,4 +13,8 @@
     <string name="toolbar_title">Contacts</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Type name…</string>
+
+    <string name="activity_local_search">Local Search</string>
+    <string name="activity_remote_search">Remote Search</string>
+    <string name="hint_search">Type contact name</string>
 </resources>

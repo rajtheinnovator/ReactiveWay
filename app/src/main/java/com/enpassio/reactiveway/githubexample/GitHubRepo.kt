@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.githubexample
 
 data class GitHubRepo(val id: Int,
                       val name: String,

@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway.instantsearch.recyclerviewwithsearch
+package com.enpassio.reactiveway.recyclerviewwithsearch
 
 import android.app.SearchManager
 import android.content.Context
