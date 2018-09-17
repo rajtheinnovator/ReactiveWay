@@ -8,4 +8,9 @@
     <string name="lbl_new_note_title">New Note</string>
     <string name="hint_enter_note">Enter your note!</string>
     <string name="lbl_edit_note_title">Edit Note</string>
+
+    <!--resources for recyclerview example with filter-->
+    <string name="toolbar_title">Contacts</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Type name…</string>
 </resources>

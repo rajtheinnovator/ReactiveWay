@@ -62,4 +62,11 @@ dependencies {
     //adding RecyclerView dependency
     implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+
+    //dependencies for searchView with filter example
+    // glide image library
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+
+    // volley http library
+    implementation 'com.android.volley:volley:1.1.0'
 }

@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import com.enpassio.reactiveway.instantsearch.recyclerviewwithsearch.RecyclerViewSearchActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,22 +44,25 @@ class MainActivity : AppCompatActivity() {
         val listView = findViewById<View>(R.id.list_view_repos) as ListView
         listView.setAdapter(adapter)
 
+        val recyclerViewSearchIntent = Intent(this, RecyclerViewSearchActivity::class.java)
+        startActivity(recyclerViewSearchIntent)
+
         val editTextUsername = findViewById<View>(R.id.edit_text_username) as EditText
         val buttonSearch = findViewById<View>(R.id.button_search) as Button
         buttonSearch.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
                 val username = editTextUsername.text.toString()
                 if (!TextUtils.isEmpty(username)) {
-                    getStarredRepos(username)
+                    //getStarredRepos(username)
                 }
             }
         })
         if (checkIfTokenIsAvailable()) {
             //if token is available in shared preference, we just need to make an api call to fetch users data
-            getUsersDetails()
+            //getUsersDetails()
         } else {
             //otherwise, first save the token in the shared preference
-            setupAPI()
+            //setupAPI()
         }
         context = this
     }
