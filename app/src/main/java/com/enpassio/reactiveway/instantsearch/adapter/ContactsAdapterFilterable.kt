@@ -63,7 +63,8 @@ class ContactsAdapterFilterable(private val context: Context, private val contac
             view.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(view: View) {
                     // send selected contact in callback
-                    listener.onContactSelected(contactListFiltered!![adapterPosition])
+                    if (!contactListFiltered!!.isNotEmpty())
+                        listener.onContactSelected(contactListFiltered!![adapterPosition])
                 }
             })
         }
