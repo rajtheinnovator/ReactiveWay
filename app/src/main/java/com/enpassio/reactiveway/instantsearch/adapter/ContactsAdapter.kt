@@ -13,7 +13,9 @@ import com.enpassio.reactiveway.R
 import com.enpassio.reactiveway.instantsearch.network.model.Contact
 
 
-class ContactsAdapter(private val context: Context, private val contactList: List<Contact>, private val listener: ContactsAdapterListener) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
+class ContactsAdapter(private val context: Context,
+                      private val contactList: List<Contact>,
+                      private val listener: ContactsAdapterListener) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView

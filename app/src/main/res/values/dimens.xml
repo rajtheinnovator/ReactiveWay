@@ -18,4 +18,14 @@
     <dimen name="contact_number">12dp</dimen>
 
     <dimen name="dimen_20">20sp</dimen>
+    <!--adding resources for flight booking example-->
+    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="logo_width">20dp</dimen>
+    <dimen name="airline_name">16sp</dimen>
+    <dimen name="no_of_stops">14sp</dimen>
+    <dimen name="lbl_price">12sp</dimen>
+    <dimen name="departure">20sp</dimen>
+    <dimen name="price">16sp</dimen>
+    <dimen name="duration">11sp</dimen>
+
 </resources>

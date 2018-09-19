@@ -11,8 +11,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import com.enpassio.reactiveway.flightapp.view.FlightSearchActivity
 import com.enpassio.reactiveway.githubexample.*
-import com.enpassio.reactiveway.instantsearch.view.InstantSearchActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,9 +47,12 @@ class MainActivity : AppCompatActivity() {
 
 //        val recyclerViewSearchIntent = Intent(this, RecyclerViewSearchActivity::class.java)
 //        startActivity(recyclerViewSearchIntent)
+//
+//        val instantSearchActivity = Intent(this, InstantSearchActivity::class.java)
+//        startActivity(instantSearchActivity)
 
-        val instantSearchActivity = Intent(this, InstantSearchActivity::class.java)
-        startActivity(instantSearchActivity)
+        val flightSearchActivity = Intent(this@MainActivity, FlightSearchActivity::class.java)
+        startActivity(flightSearchActivity)
 
         val editTextUsername = findViewById<View>(R.id.edit_text_username) as EditText
         val buttonSearch = findViewById<View>(R.id.button_search) as Button

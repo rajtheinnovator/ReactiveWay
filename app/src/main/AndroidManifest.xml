@@ -64,6 +64,9 @@
         <activity
             android:name=".instantsearch.view.InstantSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".flightapp.view.FlightSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

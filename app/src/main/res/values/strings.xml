@@ -17,4 +17,7 @@
     <string name="activity_local_search">Local Search</string>
     <string name="activity_remote_search">Remote Search</string>
     <string name="hint_search">Type contact name</string>
+    <!--adding resources for flight booking example-->
+    <string name="lbl_price">Price</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>
