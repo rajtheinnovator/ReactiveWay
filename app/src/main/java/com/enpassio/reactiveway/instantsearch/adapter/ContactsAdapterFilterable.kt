@@ -43,8 +43,9 @@ class ContactsAdapterFilterable(private val context: Context, private val contac
                 return filterResults
             }
 
-            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-
+            override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
+                contactListFiltered = filterResults?.values as ArrayList<Contact>
+                notifyDataSetChanged()
             }
         }
         return filter
