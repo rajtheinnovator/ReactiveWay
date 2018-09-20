@@ -3,7 +3,6 @@ package com.enpassio.reactiveway.flightapp.view
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +19,6 @@ class TicketsAdapter(private val context: Context,
                      private val contactList: ArrayList<Ticket>,
                      private val listener: TicketsAdapterListener)
     : RecyclerView.Adapter<TicketsAdapter.MyViewHolder>() {
-
-    fun setData(position: Int, ticket: Ticket) {
-        Log.v("my_tag", "setData called")
-        Log.v("my_tag", "price is " + ticket.price!!.price)
-        notifyItemChanged(position, ticket)
-    }
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var airlineName: TextView
@@ -65,6 +58,10 @@ class TicketsAdapter(private val context: Context,
                 }
             })
         }
+
+        fun bindTicketsList(ticketsList: ArrayList<Ticket>, context: Context, position: Int) {
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -76,6 +73,7 @@ class TicketsAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+        holder.bindTicketsList(contactList, context, position)
         val ticket = contactList[position]
 
         Glide.with(context)
@@ -97,12 +95,10 @@ class TicketsAdapter(private val context: Context,
         }
 
         if (ticket.price != null) {
-            Log.v("my_tag", "price is: " + ticket.price!!.price)
             holder.price.text = "₹" + String.format("%.0f", ticket.price!!.price)
             holder.seats.setText(ticket!!.price!!.seats + " Seats")
             holder.loader.visibility = View.INVISIBLE
         } else {
-            Log.v("my_tag", "price is null")
             holder.loader.visibility = View.VISIBLE
         }
     }

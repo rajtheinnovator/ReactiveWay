@@ -19,6 +19,7 @@ import butterknife.Unbinder
 import com.enpassio.reactiveway.R
 import com.enpassio.reactiveway.flightapp.network.ApiClient
 import com.enpassio.reactiveway.flightapp.network.ApiService
+import com.enpassio.reactiveway.flightapp.network.model.Price
 import com.enpassio.reactiveway.flightapp.network.model.Ticket
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +40,7 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
 
 
     lateinit var recyclerView: RecyclerView
+    var position: Int? = null
 
     lateinit var coordinatorLayout: CoordinatorLayout
 
@@ -127,10 +129,8 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
                         .flatMap { ticket: Ticket -> getPriceObservable(ticket) }
                         .subscribeWith(object : DisposableObserver<Ticket>() {
                             override fun onNext(ticket: Ticket) {
-                                var position: Int? = 0
                                 if (!ticketsList.isEmpty()) {
                                     position = listOfPositionOfTickets.indexOf(ticket.flightNumber)
-
                                 }
                                 if (position == -1) {
                                     // TODO - take action
@@ -139,8 +139,10 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
                                     return
                                 }
 
-                                ticketsList.set(position!!, ticket);
-                                mAdapter!!.notifyItemChanged(position);
+                                if (position != -1) {
+                                    ticketsList.set(position!!, ticket)
+                                    mAdapter!!.notifyItemChanged(position!!, ticket)
+                                }
                             }
 
                             override fun onError(e: Throwable) {
@@ -172,31 +174,47 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
      * map() operator is used to change the return type to Ticket
      */
     private fun getPriceObservable(ticket: Ticket): Observable<Ticket> {
-        return apiService!!
+        val ticketObservable = apiService!!
                 .getPrice(ticket.flightNumber!!, ticket.from!!, ticket.to!!)
                 .toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { price -> Ticket(price = price) }
+                .map { price -> getTicketWithPriceIncluded(price, ticket) }
+        return ticketObservable
+    }
+
+    private fun getTicketWithPriceIncluded(price: Price, ticket: Ticket): Ticket {
+        val actualTicket = ticket
+        actualTicket.price = price
+        return actualTicket
     }
 
     class GridSpacingItemDecoration(private val spanCount: Int, private val spacing: Int, private val includeEdge: Boolean) : RecyclerView.ItemDecoration() {
 
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            val position = parent.getChildAdapterPosition(view) // item position
-            val column = position % spanCount // item column
+        override fun getItemOffsets(outRect: Rect,
+                                    view: View,
+                                    parent: RecyclerView,
+                                    state: RecyclerView.State) {
+            // item position
+            val position = parent.getChildAdapterPosition(view)
+            // item column
+            val column = position % spanCount
 
             if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+                // spacing - column * ((1f / spanCount) * spacing)
+                outRect.left = spacing - column * spacing / spanCount
+                // (column + 1) * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount
 
                 if (position < spanCount) { // top edge
                     outRect.top = spacing
                 }
                 outRect.bottom = spacing // item bottom
             } else {
-                outRect.left = column * spacing / spanCount // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                // column * ((1f / spanCount) * spacing)
+                outRect.left = column * spacing / spanCount
+                // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount
                 if (position >= spanCount) {
                     outRect.top = spacing // item top
                 }
