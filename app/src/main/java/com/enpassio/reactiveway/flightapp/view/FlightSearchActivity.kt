@@ -61,7 +61,18 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
         val mLayoutManager = GridLayoutManager(this, 1)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(FlightSearchActivity.GridSpacingItemDecoration(1, dpToPx(5), true))
-        recyclerView.itemAnimator = DefaultItemAnimator()
+
+        //set animator to null so that the new view holder can be used
+        //link: @ https://stackoverflow.com/a/32574668
+        val animator = object : DefaultItemAnimator() {
+            override fun canReuseUpdatedViewHolder(viewHolder: RecyclerView.ViewHolder): Boolean {
+                return true
+            }
+        }
+        recyclerView.itemAnimator = animator
+
+
+
         recyclerView.adapter = mAdapter
 
         val ticketsObservable = getTickets(from, to).replay()
@@ -119,6 +130,7 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
                                 var position: Int? = 0
                                 if (!ticketsList.isEmpty()) {
                                     position = listOfPositionOfTickets.indexOf(ticket.flightNumber)
+
                                 }
                                 if (position == -1) {
                                     // TODO - take action
@@ -127,8 +139,8 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
                                     return
                                 }
 
-                                ticketsList.set(position!!, ticket)
-                                mAdapter!!.notifyItemChanged(position)
+                                ticketsList.set(position!!, ticket);
+                                mAdapter!!.notifyItemChanged(position);
                             }
 
                             override fun onError(e: Throwable) {
