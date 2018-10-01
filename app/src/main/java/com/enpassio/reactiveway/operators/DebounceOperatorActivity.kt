@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway.operator
+package com.enpassio.reactiveway.operators
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

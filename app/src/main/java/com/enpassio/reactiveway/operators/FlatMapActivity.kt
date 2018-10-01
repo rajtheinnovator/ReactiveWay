@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway.operator
+package com.enpassio.reactiveway.operators
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,19 +12,19 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
+
 /* Order of execution is not maintained here for user's name as can be seen in the Logcat output example below */
 /*
-09-08 21:12:45.315 31543-31543/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onSubscribe
-09-08 21:12:46.512 31543-31728/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onNext: user1, male, Address(address=This is address 2)
-09-08 21:12:47.903 31543-31729/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onNext: user2, male, Address(address=Address value 1)
-09-08 21:12:48.685 31543-31728/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onNext: user3, male, Address(address=This is address 2)
-09-08 21:12:49.440 31543-31729/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onNext: user4, male, Address(address=This is address 2)
-09-08 21:12:50.845 31543-31728/com.enpassio.reactiveway D/ConcatMapOperatorActivity: ConcatMap onNext: user5, male, Address(address=This is address 2)
-    ConcatMap All users emitted!
+09-08 21:05:43.716 28078-28078/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onSubscribe
+09-08 21:05:44.477 28078-28150/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onNext: user1, male, Address(address=This is address 2)
+09-08 21:05:44.702 28078-28151/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onNext: user2, male, Address(address=Address value 1)
+09-08 21:05:44.824 28078-28153/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onNext: user4, male, Address(address=Address value 1)
+09-08 21:05:45.122 28078-28154/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onNext: user5, male, Address(address=This is address 2)
+09-08 21:05:45.210 28078-28152/com.enpassio.reactiveway D/FlatMapActivity: FlatMap onNext: user3, male, Address(address=This is address 2)
+09-08 21:05:45.211 28078-28152/com.enpassio.reactiveway D/FlatMapActivity: FlatMap All users emitted!
 */
+class FlatMapActivity : AppCompatActivity() {
 
-
-class ConcatMapOperatorActivity : AppCompatActivity() {
     private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,15 +34,15 @@ class ConcatMapOperatorActivity : AppCompatActivity() {
         usersObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .concatMap { User -> getAddressObservable(User) }
+                .flatMap { User -> getAddressObservable(User) }
                 .subscribe(object : Observer<User> {
                     override fun onSubscribe(d: Disposable) {
-                        Log.d(TAG, "ConcatMap onSubscribe")
+                        Log.d(TAG, "FlatMap onSubscribe")
                         disposable = d
                     }
 
                     override fun onNext(user: User) {
-                        Log.d(TAG, "ConcatMap onNext: " + user.name + ", " + user.gender + ", " + user.address)
+                        Log.d(TAG, "FlatMap onNext: " + user.name + ", " + user.gender + ", " + user.address)
                     }
 
                     override fun onError(e: Throwable) {
@@ -50,7 +50,7 @@ class ConcatMapOperatorActivity : AppCompatActivity() {
                     }
 
                     override fun onComplete() {
-                        Log.d(TAG, "ConcatMap All users emitted!")
+                        Log.d(TAG, "FlatMap All users emitted!")
                     }
                 })
     }
@@ -120,6 +120,6 @@ class ConcatMapOperatorActivity : AppCompatActivity() {
 
     companion object {
 
-        private val TAG = ConcatMapOperatorActivity::class.java.simpleName
+        private val TAG = FlatMapActivity::class.java.simpleName
     }
 }

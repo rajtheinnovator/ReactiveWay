@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway.operator
+package com.enpassio.reactiveway.operators
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,28 +12,28 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class MergeOperatorExample : AppCompatActivity() {
+class ConcatOperatorExample : AppCompatActivity() {
 
     companion object {
 
-        private val TAG = MergeOperatorExample::class.java.simpleName
+        private val TAG = ConcatOperatorExample::class.java.simpleName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        seeMergeExample()
+        seeConcatExample()
     }
 
-    private fun seeMergeExample() {
+    private fun seeConcatExample() {
         Observable
-                .merge(getMaleObservable(), getFemaleObservable())
+                .concat(getMaleObservable(), getFemaleObservable())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : Observer<User> {
+                .subscribe(object : Observer<User> {
                     override fun onSubscribe(d: Disposable) {}
 
                     override fun onNext(user: User) {
-                        Log.d(TAG, user.name + ", " + user.gender)
+                        Log.d(TAG, "ConcatOperator " + user.name + ", " + user.gender)
                     }
 
                     override fun onError(e: Throwable) {
@@ -44,6 +44,7 @@ class MergeOperatorExample : AppCompatActivity() {
 
                     }
                 })
+
     }
 
     private fun getFemaleObservable(): Observable<User> {

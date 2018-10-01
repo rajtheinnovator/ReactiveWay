@@ -11,11 +11,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import com.enpassio.reactiveway.operator.User
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-
+import com.enpassio.reactiveway.githubexample.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import rx.Observer
+import rx.Subscription
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 

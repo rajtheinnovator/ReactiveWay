@@ -29,22 +29,22 @@
                     android:scheme="com.enpassio.reactiveway" />
             </intent-filter>
         </activity>
-        <activity android:name=".operator.ObservablesAndObserversActivity" />
-        <activity android:name=".operator.SingleObservableSingleObserverActivity" />
-        <activity android:name=".operator.MaybeObservableMaybeObserverActivity" />
-        <activity android:name=".operator.CompletableObservableCompletableObserverActivity" />
-        <activity android:name=".operator.FlowableObservableSingleObserverActivity" />
-        <activity android:name=".operator.MapOperatorActivity" />
-        <activity android:name=".operator.FlatMapActivity" />
-        <activity android:name=".operator.ConcatMapOperatorActivity" />
-        <activity android:name=".operator.SwitchMapOperatorActivity" />
-        <activity android:name=".operator.BufferOperatorActivity" />
-        <activity android:name=".operator.DebounceOperatorActivity"></activity>
-        <activity android:name=".operator.ConcatOperatorExample" />
-        <activity android:name=".operator.MergeOperatorExample" />
-        <activity android:name=".operator.MathematicalOperatorExample" />
-        <activity android:name=".operator.MathematicalOperationOnCustomDataTypes" />
-        <activity android:name=".operator.OperatorsMainActivity" />
+        <activity android:name=".operators.ObservablesAndObserversActivity" />
+        <activity android:name=".operators.SingleObservableSingleObserverActivity" />
+        <activity android:name=".operators.MaybeObservableMaybeObserverActivity" />
+        <activity android:name=".operators.CompletableObservableCompletableObserverActivity" />
+        <activity android:name=".operators.FlowableObservableSingleObserverActivity" />
+        <activity android:name=".operators.MapOperatorActivity" />
+        <activity android:name=".operators.FlatMapActivity" />
+        <activity android:name=".operators.ConcatMapOperatorActivity" />
+        <activity android:name=".operators.SwitchMapOperatorActivity" />
+        <activity android:name=".operators.BufferOperatorActivity" />
+        <activity android:name=".operators.DebounceOperatorActivity"></activity>
+        <activity android:name=".operators.ConcatOperatorExample" />
+        <activity android:name=".operators.MergeOperatorExample" />
+        <activity android:name=".operators.MathematicalOperatorExample" />
+        <activity android:name=".operators.MathematicalOperationOnCustomDataTypes" />
+        <activity android:name=".operators.OperatorsMainActivity" />
     </application>
 
 </manifest>
