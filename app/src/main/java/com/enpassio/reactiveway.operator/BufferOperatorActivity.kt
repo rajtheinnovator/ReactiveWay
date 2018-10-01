@@ -1,4 +1,4 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,13 +7,14 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.enpassio.reactiveway.R
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_buffer_operator.*
+import kotlinx.android.synthetic.main.operator_activity_buffer.*
 import java.util.concurrent.TimeUnit
 
 
@@ -31,7 +32,7 @@ class BufferOperatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_buffer_operator)
+        setContentView(R.layout.operator_activity_buffer)
 
         simpleExampleOfBuffer()
 

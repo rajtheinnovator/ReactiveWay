@@ -1,8 +1,9 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.enpassio.reactiveway.R
 import io.reactivex.Flowable
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,7 +38,7 @@ class FlowableObservableSingleObserverActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .reduce(0, object : BiFunction<Int, Int, Int> {
                     override fun apply(result: Int, number: Int): Int {
-                        Log.v(TAG, "Flowable Result: " + result + ", new number: " + number);
+                        Log.v(TAG, "Flowable Result: " + result + ", new number: " + number)
                         return result + number
                     }
                 })

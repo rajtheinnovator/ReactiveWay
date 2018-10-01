@@ -5,22 +5,29 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".DebounceOperatorActivity">
+    tools:context=".operator.BufferOperatorActivity">
 
-    <EditText
-        android:id="@+id/input_search"
+    <Button
+        android:id="@+id/layout_tap_area"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="8dp"
         android:clickable="true"
-        android:focusable="true"
-        android:hint="type search query here"
-        android:inputType="textAutoComplete" />
+        android:gravity="center"
+        android:text="Tap repeatedly here!"
+        android:textAllCaps="false" />
 
     <TextView
-        android:id="@+id/txt_search_string"
+        android:id="@+id/tap_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tap_result_max_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
 
 </LinearLayout>

@@ -1,8 +1,9 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.enpassio.reactiveway.R
 import io.reactivex.Maybe
 import io.reactivex.MaybeObserver
 import io.reactivex.android.schedulers.AndroidSchedulers

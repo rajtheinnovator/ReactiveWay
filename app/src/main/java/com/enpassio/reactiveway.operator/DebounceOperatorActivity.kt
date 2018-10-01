@@ -1,17 +1,18 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.enpassio.reactiveway.R
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_debounce_operator.*
+import kotlinx.android.synthetic.main.operators_activity_debounce.*
 import java.util.concurrent.TimeUnit
 
 
@@ -23,7 +24,7 @@ class DebounceOperatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_debounce_operator)
+        setContentView(R.layout.operators_activity_debounce)
         unbinder = ButterKnife.bind(this)
 
         disposable.add(

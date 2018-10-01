@@ -1,11 +1,11 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.enpassio.reactiveway.operator.MathematicalOperatorExample
-import com.enpassio.reactiveway.operator.MyModel
+import com.enpassio.reactiveway.MainActivity
+import com.enpassio.reactiveway.R
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class OperatorsMainActivity : AppCompatActivity() {
 
     companion object {
         val TAG = MainActivity::class.java.simpleName
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.operators_activity_main)
 
 //        val buttonCLick: Button = findViewById(R.id.authenticate)
 //        buttonCLick.setOnClickListener({ view -> addObserver() })

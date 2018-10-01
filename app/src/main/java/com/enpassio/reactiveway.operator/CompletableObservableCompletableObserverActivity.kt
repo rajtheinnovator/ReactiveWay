@@ -1,8 +1,9 @@
-package com.enpassio.reactiveway
+package com.enpassio.reactiveway.operator
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.enpassio.reactiveway.R
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter
 import io.reactivex.CompletableObserver

@@ -23,3 +23,8 @@ ______________________________________________________________
 * https://github.com/ReactiveX/RxJava/wiki/Mathematical-and-Aggregate-Operators
 * https://www.baeldung.com/rxjava-math
 * https://search.maven.org/artifact/com.github.akarnokd/rxjava2-extensions/0.20.3/jar
+* https://www.androidhive.info/RxJava/android-rxjava-networking-with-retrofit-gson-notes-app/
+* https://www.androidhive.info/2017/11/android-recyclerview-with-search-filter-functionality/
+* https://www.androidhive.info/RxJava/android-rxjava-instant-search-local-remote-databases/
+* https://www.androidhive.info/RxJava/flatmap-concatmap-operators-flight-tickets-app/
+* https://www.androidhive.info/RxJava/rxjava-operators-repeat-skip-take-takeuntil/
