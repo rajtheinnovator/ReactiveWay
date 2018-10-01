@@ -38,7 +38,7 @@ class ContactsAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.contact_row_item, parent, false)
+                .inflate(R.layout.instant_search_contact_row_item, parent, false)
 
         return MyViewHolder(itemView)
     }

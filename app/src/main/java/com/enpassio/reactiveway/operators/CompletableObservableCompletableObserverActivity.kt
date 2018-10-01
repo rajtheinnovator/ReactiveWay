@@ -28,7 +28,7 @@ class CompletableObservableCompletableObserverActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.operators_activity_main)
 
         val myModel = MyModel(1, "A new MyModel object it is!")
 

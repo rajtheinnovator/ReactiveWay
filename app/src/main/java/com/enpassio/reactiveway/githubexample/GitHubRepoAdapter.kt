@@ -47,7 +47,7 @@ class GitHubRepoAdapter : BaseAdapter() {
 
     private fun createView(parent: ViewGroup): View {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_github_repo, parent, false)
+        val view = inflater.inflate(R.layout.github_repo_item, parent, false)
         val viewHolder = GitHubRepoViewHolder(view)
         view.tag = viewHolder
         return view

@@ -29,7 +29,7 @@ class NotesAdapter(private val context: Context, private val notesList: List<Not
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.note_list_row, parent, false)
+                .inflate(R.layout.notesapp_list_row, parent, false)
 
         return MyViewHolder(itemView)
     }

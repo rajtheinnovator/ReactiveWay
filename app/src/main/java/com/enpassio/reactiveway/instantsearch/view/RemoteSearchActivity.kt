@@ -57,7 +57,7 @@ class RemoteSearchActivity : AppCompatActivity(), ContactsAdapter.ContactsAdapte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_remote_search)
+        setContentView(R.layout.instant_search_activity_remote_search)
 
         recyclerView = findViewById(R.id.recycler_view)
         inputSearch = findViewById(R.id.input_search)

@@ -15,7 +15,7 @@ class InstantSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_instant_search)
+        setContentView(R.layout.instant_search_activity)
 
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)

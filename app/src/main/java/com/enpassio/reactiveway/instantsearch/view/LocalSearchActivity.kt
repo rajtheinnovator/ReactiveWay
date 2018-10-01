@@ -39,7 +39,7 @@ class LocalSearchActivity : AppCompatActivity(), ContactsAdapterFilterable.Conta
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_local_search)
+        setContentView(R.layout.instant_search_activity_local_search)
 
         inputSearch = findViewById(R.id.input_search)
         recyclerView = findViewById(R.id.recycler_view)

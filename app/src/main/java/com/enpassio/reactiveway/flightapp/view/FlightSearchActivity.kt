@@ -46,7 +46,7 @@ class FlightSearchActivity : AppCompatActivity(), TicketsAdapter.TicketsAdapterL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_flight_search)
+        setContentView(R.layout.flight_search_activity)
         unbinder = ButterKnife.bind(this)
 
         recyclerView = findViewById(R.id.recycler_view)

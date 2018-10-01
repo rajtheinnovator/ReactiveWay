@@ -18,7 +18,7 @@ class MapOperatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.operators_activity_main)
 
         /*
         create a map and add to the observer so that it returns items emitted by the observables

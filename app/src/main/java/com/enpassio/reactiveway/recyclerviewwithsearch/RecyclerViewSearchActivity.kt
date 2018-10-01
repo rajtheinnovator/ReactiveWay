@@ -29,7 +29,7 @@ class RecyclerViewSearchActivity : AppCompatActivity(), ContactsAdapter.Contacts
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recyclerview_search)
+        setContentView(R.layout.recyclerview_search_activity)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 

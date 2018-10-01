@@ -66,7 +66,7 @@ class TicketsAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.ticket_row, parent, false)
+                .inflate(R.layout.flight_search_ticket_row, parent, false)
 
         return MyViewHolder(itemView)
     }
