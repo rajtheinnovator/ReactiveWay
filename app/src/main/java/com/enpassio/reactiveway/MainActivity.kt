@@ -11,15 +11,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import com.enpassio.reactiveway.flightapp.view.FlightSearchActivity
-import com.enpassio.reactiveway.githubexample.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import rx.Observer
-import rx.Subscription
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import com.enpassio.reactiveway.operator.User
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,9 +45,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val instantSearchActivity = Intent(this, InstantSearchActivity::class.java)
 //        startActivity(instantSearchActivity)
-
-        val flightSearchActivity = Intent(this@MainActivity, FlightSearchActivity::class.java)
-        startActivity(flightSearchActivity)
+//
+//        val flightSearchActivity = Intent(this@MainActivity, FlightSearchActivity::class.java)
+//        startActivity(flightSearchActivity)
+//
+//        val operatorsMainActivity = Intent(this@MainActivity, OperatorsMainActivity::class.java)
+//        startActivity(operatorsMainActivity)
 
         val editTextUsername = findViewById<View>(R.id.edit_text_username) as EditText
         val buttonSearch = findViewById<View>(R.id.button_search) as Button

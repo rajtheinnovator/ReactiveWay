@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.enpassio.reactiveway.recyclerviewwithsearch.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,12 +18,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.enpassio.reactiveway.notesapp.view.NotesActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -35,38 +28,23 @@
                     android:host="redirecturi"
                     android:scheme="com.enpassio.reactiveway" />
             </intent-filter>
-
         </activity>
-        <activity
-            android:name="com.enpassio.reactiveway.recyclerviewwithsearch.RecyclerViewSearchActivity"
-            android:label="RecyclerViewSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".instantsearch.view.LocalSearchActivity"
-            android:label="@string/activity_local_search"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".instantsearch.view.RemoteSearchActivity"
-            android:label="@string/activity_remote_search"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".instantsearch.view.InstantSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".flightapp.view.FlightSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".operator.ObservablesAndObserversActivity" />
+        <activity android:name=".operator.SingleObservableSingleObserverActivity" />
+        <activity android:name=".operator.MaybeObservableMaybeObserverActivity" />
+        <activity android:name=".operator.CompletableObservableCompletableObserverActivity" />
+        <activity android:name=".operator.FlowableObservableSingleObserverActivity" />
+        <activity android:name=".operator.MapOperatorActivity" />
+        <activity android:name=".operator.FlatMapActivity" />
+        <activity android:name=".operator.ConcatMapOperatorActivity" />
+        <activity android:name=".operator.SwitchMapOperatorActivity" />
+        <activity android:name=".operator.BufferOperatorActivity" />
+        <activity android:name=".operator.DebounceOperatorActivity"></activity>
+        <activity android:name=".operator.ConcatOperatorExample" />
+        <activity android:name=".operator.MergeOperatorExample" />
+        <activity android:name=".operator.MathematicalOperatorExample" />
+        <activity android:name=".operator.MathematicalOperationOnCustomDataTypes" />
+        <activity android:name=".operator.OperatorsMainActivity" />
     </application>
 
 </manifest>

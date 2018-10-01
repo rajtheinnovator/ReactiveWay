@@ -27,3 +27,4 @@ ______________________________________________________________
 * https://www.androidhive.info/2017/11/android-recyclerview-with-search-filter-functionality/
 * https://www.androidhive.info/RxJava/android-rxjava-instant-search-local-remote-databases/
 * https://www.androidhive.info/RxJava/flatmap-concatmap-operators-flight-tickets-app/
+* https://www.androidhive.info/RxJava/rxjava-operators-repeat-skip-take-takeuntil/
