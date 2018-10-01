@@ -45,6 +45,11 @@
         <activity android:name=".operators.MathematicalOperatorExample" />
         <activity android:name=".operators.MathematicalOperationOnCustomDataTypes" />
         <activity android:name=".operators.OperatorsMainActivity" />
+        <activity android:name=".flightapp.view.FlightSearchActivity" />
+        <activity android:name=".instantsearch.view.InstantSearchActivity" />
+        <activity android:name=".instantsearch.view.LocalSearchActivity" />
+        <activity android:name=".instantsearch.view.RemoteSearchActivity" />
+        <activity android:name=".notesapp.view.NotesActivity" />
     </application>
 
 </manifest>
