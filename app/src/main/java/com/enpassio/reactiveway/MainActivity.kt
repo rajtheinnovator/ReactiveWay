@@ -1,354 +1,182 @@
 package com.enpassio.reactiveway
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
-import com.enpassio.reactiveway.operator.MathematicalOperatorExample
-import com.enpassio.reactiveway.operator.MyModel
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ListView
+import com.enpassio.reactiveway.operator.User
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Predicate
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        val TAG = MainActivity::class.java.simpleName
-    }
+    private val adapter = GitHubRepoAdapter()
+    private var subscription: Subscription? = null
 
-    private var compositeDisposable = CompositeDisposable()
+    private val clientId = BuildConfig.CLIENT_ID
+    private val clientSecret = BuildConfig.CLIENT_SECRET
+
+    /*
+    for redirecting back to the app, we'll need the code below which is
+    referenced from: https://stackoverflow.com/a/33871016
+    */
+    private var context: Context? = null
+
+    private val redirectUri = "com.enpassio.reactiveway://redirecturi"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val buttonCLick: Button = findViewById(R.id.authenticate)
-//        buttonCLick.setOnClickListener({ view -> addObserver() })
+        val listView = findViewById<View>(R.id.list_view_repos) as ListView
+        listView.setAdapter(adapter)
+
+//        val recyclerViewSearchIntent = Intent(this, RecyclerViewSearchActivity::class.java)
+//        startActivity(recyclerViewSearchIntent)
 //
-//        operatorFromArrayExample()
-//        operatorRangeExample()
-//        operatorChainingExample()
-//        operatorJustWhichGivesJustOneEmissionExample()
-//        operatorJustWhichGivesJustOneEmissionWithLoopsExample()
-//        operatorFromWhichGivesNEmission()
-//        operatorRepeatExample()
+//        val instantSearchActivity = Intent(this, InstantSearchActivity::class.java)
+//        startActivity(instantSearchActivity)
 //
-//        val observablesAndObserversActivityIntent = Intent(this, ObservablesAndObserversActivity::class.java)
-//        startActivity(observablesAndObserversActivityIntent)
+//        val flightSearchActivity = Intent(this@MainActivity, FlightSearchActivity::class.java)
+//        startActivity(flightSearchActivity)
 //
-//        val singleObservableSingleObserverActivity = Intent(this, SingleObservableSingleObserverActivity::class.java)
-//        startActivity(singleObservableSingleObserverActivity)
-//
-//        val maybeObservableMaybeObserverActivity = Intent(this, MaybeObservableMaybeObserverActivity::class.java)
-//        startActivity(maybeObservableMaybeObserverActivity)
-//
-//        val completableObservableCompletableObserverActivity = Intent(this, CompletableObservableCompletableObserverActivity::class.java)
-//        startActivity(completableObservableCompletableObserverActivity)
-//
-//        val flowableObservableSingleObserverActivity = Intent(this, FlowableObservableSingleObserverActivity::class.java)
-//        startActivity(flowableObservableSingleObserverActivity)
-//
-//        val mapOperatorActivity = Intent(this, MapOperatorActivity::class.java)
-//        startActivity(mapOperatorActivity)
-//
-//        val flatMapActivity = Intent(this, FlatMapActivity::class.java)
-//        startActivity(flatMapActivity)
-//
-//        val concatMapOperatorActivity = Intent(this, ConcatMapOperatorActivity::class.java)
-//        startActivity(concatMapOperatorActivity)
-//
-//        val switchMapOperatorActivity = Intent(this, SwitchMapOperatorActivity::class.java)
-//        startActivity(switchMapOperatorActivity)
-//
-//        val bufferOperatorActivity = Intent(this, BufferOperatorActivity::class.java)
-//        startActivity(bufferOperatorActivity)
-//
-//        val debounceOperatorActivity = Intent(this, DebounceOperatorActivity::class.java)
-//        startActivity(debounceOperatorActivity)
-//
-//        val concatOperatorExample = Intent(this, ConcatOperatorExample::class.java)
-//        startActivity(concatOperatorExample)
-//
-//        val mergeOperatorExample = Intent(this, MergeOperatorExample::class.java)
-//        startActivity(mergeOperatorExample)
-//
-        val mathematicalOperatorExample = Intent(this, MathematicalOperatorExample::class.java)
-        startActivity(mathematicalOperatorExample)
-//
-//        val mathematicalOperationOnCustomDataTypes = Intent(this, MathematicalOperationOnCustomDataTypes::class.java)
-//        startActivity(mathematicalOperationOnCustomDataTypes)
-    }
+//        val operatorsMainActivity = Intent(this@MainActivity, OperatorsMainActivity::class.java)
+//        startActivity(operatorsMainActivity)
 
-    private fun operatorRepeatExample() {
-        Observable
-                .range(1, 4)
-                .repeat(3)
-                .subscribe(object : Observer<Int> {
-                    override fun onSubscribe(d: Disposable) {
-                        Log.d(TAG, "Subscribed")
-                    }
-
-                    override fun onNext(integer: Int) {
-                        Log.d(TAG, "Inside Repeat, onNext: " + integer)
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                    }
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside repeat, Completed emitting all numbers")
-                    }
-                })
-    }
-
-    private fun operatorFromWhichGivesNEmission() {
-        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-
-        Observable.fromArray(*numbers)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Int> {
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                    override fun onNext(integer: Int) {
-                        Log.d(TAG, "Inside fromArray, onNext: " + integer)
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                    }
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside fromArray, All numbers have been emitted!")
-                    }
-                })
-    }
-
-    private fun operatorJustWhichGivesJustOneEmissionWithLoopsExample() {
-        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-        val lotsOfNumbers = arrayOf(50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60)
-
-        Observable.just(numbers, lotsOfNumbers)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Array<Int>> {
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                    override fun onNext(integersArrayList: Array<Int>) {
-                        for (number in integersArrayList) {
-                            Log.d(TAG, "Inside just with loop, onNext: " + number)
-                        }
-
-
-                        // you might have to loop through the array
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                    }
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside just with loops, All numbers have been emitted!")
-                    }
-                })
-    }
-
-    private fun operatorJustWhichGivesJustOneEmissionExample() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Int> {
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                    override fun onNext(integer: Int) {
-                        Log.d(TAG, "Inside just onNext: " + integer)
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                    }
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside just All numbers have been emitted!")
-                    }
-                })
-    }
-
-    private fun operatorChainingExample() {
-        Observable.range(1, 20)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(object : Predicate<Int> {
-                    @Throws(Exception::class)
-                    override fun test(integer: Int): Boolean {
-                        return integer % 2 == 0
-                    }
-                })
-                .map { data: Int -> "Inside filter ${data} is even number" }
-                .subscribe(object : Observer<String> {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onNext(s: String) {
-                        Log.d(TAG, "Inside filter onNext: $s")
-                    }
-
-                    override fun onError(e: Throwable) {}
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside filter All numbers have been emitted!")
-                    }
-                })
-
-    }
-
-    private fun operatorRangeExample() {
-        Observable.range(1, 20)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableObserver<Int>() {
-                    override fun onNext(integer: Int) {
-                        Log.d(TAG, "Inside range, Number is: " + integer)
-                    }
-
-                    override fun onError(e: Throwable) {
-
-                    }
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside range, All have been numbers emitted!")
-                    }
-                })
-    }
-
-    private fun operatorFromArrayExample() {
-        val numbers = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-
-        Observable.fromArray(*numbers)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableObserver<Int>() {
-                    override fun onNext(integer: Int) {
-                        Log.d(TAG, "Inside fromArray, Number is: " + integer)
-                    }
-
-                    override fun onError(e: Throwable) {}
-
-                    override fun onComplete() {
-                        Log.d(TAG, "Inside fromArray, All numbers have been emitted!")
-                    }
-                })
-    }
-
-
-    private fun addObserver() {
-        val myObserver = getMyObserver()
-        val myCapsObserver = getMyCapsObserver()
-
-        val myObservable = getObservable()
-        compositeDisposable.add(myObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(object : Predicate<MyModel> {
-                    @Throws(Exception::class)
-                    override fun test(s: MyModel): Boolean {
-                        return s.myData.toLowerCase().endsWith("e")
-                    }
-                })
-                /*
-                subscribe vs subscribeWith explanation here
-                at @Link: https://stackoverflow.com/a/44762520
-                */
-                .subscribeWith(myObserver))
-        compositeDisposable.add(myObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(object : Predicate<MyModel> {
-                    @Throws(Exception::class)
-                    override fun test(s: MyModel): Boolean {
-                        return s.myData.toLowerCase().startsWith("d")
-                    }
-                })
-                .map { s: MyModel -> MyModel(s.myId, s.myData.toUpperCase()) }
-                .subscribeWith(myCapsObserver))
-    }
-
-    private fun getMyCapsObserver(): DisposableObserver<MyModel> {
-        return object : DisposableObserver<MyModel>() {
-            override fun onNext(s: MyModel) {
-                Log.d(TAG, "onNext called with myData: ${s.myData}")
-            }
-
-            override fun onError(e: Throwable) {
-                Log.e(TAG, "onError called with error message: " + e.message)
-            }
-
-            override fun onComplete() {
-                Log.d(TAG, "onComplete called and hence all items are emitted!")
-            }
-        }
-    }
-
-    private fun getMyObserver(): DisposableObserver<MyModel> {
-        return object : DisposableObserver<MyModel>() {
-            override fun onNext(s: MyModel) {
-                Log.d(TAG, "onNext called with myData: ${s.myData}")
-            }
-
-            override fun onError(e: Throwable) {
-                Log.e(TAG, "onError called with error message: " + e.message)
-            }
-
-            override fun onComplete() {
-                Log.d(TAG, "onComplete called and hence all items are emitted!")
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        /*
-        no need to listen to **any** event when the activity is destroyed,
-        so dispose the observer
-        */
-        compositeDisposable.clear()
-    }
-
-    private fun getObservable(): Observable<MyModel> {
-        val notes = getData()
-        return Observable.create(ObservableOnSubscribe<MyModel> { emitter ->
-            notes.forEach { note ->
-                if (!emitter.isDisposed) {
-                    emitter.onNext(note)
+        val editTextUsername = findViewById<View>(R.id.edit_text_username) as EditText
+        val buttonSearch = findViewById<View>(R.id.button_search) as Button
+        buttonSearch.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                val username = editTextUsername.text.toString()
+                if (!TextUtils.isEmpty(username)) {
+                    //getStarredRepos(username)
                 }
             }
+        })
+        if (checkIfTokenIsAvailable()) {
+            //if token is available in shared preference, we just need to make an api call to fetch users data
+            //getUsersDetails()
+        } else {
+            //otherwise, first save the token in the shared preference
+            //setupAPI()
+        }
+        context = this
+    }
 
-            if (!emitter.isDisposed) {
-                emitter.onComplete()
+    private fun getUsersDetails() {
+        //get access token from the shared preference
+        val token = getPreferences(Context.MODE_PRIVATE).getString("token", "")
+        Log.v("my_tag", "token is " + token)
+        //now create service using the service generator so that it adds header to our call to the endpoint @/user
+        val userDetailsService = UsersClient.client.create(UsersService::class.java)
+        /* fetch data for users scope. This is important as we must include at least one @Field
+        parameter to our service and because we don't want anything specific, we just use @user
+        scope
+        */
+        val call = userDetailsService.getUsersData("user", token!!)
+        call.enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("my_tag", "couldn't get users data with error: " + t.message)
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val usersData = response.body()
+                Log.v("my_tag", "users avatar is: " + usersData?.avatarUrl)
+                Log.v("my_tag", "users data is: " + usersData.toString())
             }
         })
     }
 
-    private fun getData(): List<MyModel> {
-        val myData = ArrayList<MyModel>()
-        myData.add(MyModel(1, "data 1"))
-        myData.add(MyModel(2, "data 2 is good"))
-        myData.add(MyModel(3, "data 3 looks nice"))
-        myData.add(MyModel(4, "data 4, you're amazing"))
-        return myData
+    private fun checkIfTokenIsAvailable(): Boolean {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val token = sharedPref.getString("token", "")!!
+        if (!token.isEmpty()) return true else return false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // the intent filter defined in AndroidManifest will handle the return from ACTION_VIEW intent
+        val uri = intent.data
+        if (uri != null && uri.toString().startsWith(redirectUri)) {
+            // use the parameter your API exposes for the code (mostly it's "code")
+            val code = uri.getQueryParameter("code")
+            if (code != null) {
+                // get access token
+                val loginService = APIClient.client.create(LoginService::class.java)
+
+                val call = loginService.getAccessToken(code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
+
+                call.enqueue(object : Callback<AccessToken> {
+                    override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
+                        val accessToken = response.body()
+                        runOnUiThread() {
+                            val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+                                putString("token", accessToken?.token)
+                                apply()
+                            }
+                            //after saving the token, fetch users data from the api
+                            getUsersDetails()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AccessToken>, t: Throwable) {
+                        Log.e("my_tag", "error is: " + t.message)
+                    }
+                })
+            } else if (uri.getQueryParameter("error") != null) {
+                // show an error message here
+            }
+        }
+    }
+
+    private fun setupAPI() {
+        val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://github.com/login/oauth/"
+                        + "authorize/" + "?client_id=" + clientId
+                        + "&scope=user"
+                        + "&redirect_uri=" + redirectUri))
+        startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        if (subscription != null && !subscription!!.isUnsubscribed) {
+            subscription!!.unsubscribe()
+        }
+        super.onDestroy()
+    }
+
+    private fun getStarredRepos(username: String) {
+        subscription = GitHubClient.getInstance()
+                .getStarredRepos(username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<List<GitHubRepo>> {
+                    override fun onCompleted() {
+                    }
+
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                    }
+
+                    override fun onNext(gitHubRepos: List<GitHubRepo>) {
+                        adapter.setGitHubRepos(gitHubRepos)
+                    }
+                })
+    }
+
+    companion object {
+
+        private val TAG = MainActivity::class.java.simpleName
     }
 }
